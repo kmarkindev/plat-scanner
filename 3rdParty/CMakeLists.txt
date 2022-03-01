@@ -1,0 +1,2 @@
+add_subdirectory(tesseract)
+add_subdirectory(stb)
