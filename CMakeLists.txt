@@ -13,7 +13,11 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
-add_executable(PlatScanner)
+if(WIN32)
+	add_executable(PlatScanner WIN32)
+else()
+	add_executable(PlatScanner)
+endif()
 
 add_subdirectory(3rdParty)
 add_subdirectory(Sources)
@@ -21,6 +25,8 @@ add_subdirectory(Sources)
 target_link_libraries(PlatScanner PUBLIC
 	stb
 	libtesseract
+	wx::core
+	wx::base
 )
 
 # tesseract generates version.h header
