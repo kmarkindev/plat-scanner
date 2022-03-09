@@ -1,3 +1,6 @@
 [submodule "3rdParty/tesseract"]
 	path = 3rdParty/tesseract
 	url = https://github.com/tesseract-ocr/tesseract.git
+[submodule "3rdParty/wxWidgets"]
+	path = 3rdParty/wxWidgets
+	url = https://github.com/wxWidgets/wxWidgets.git
