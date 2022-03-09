@@ -6,9 +6,9 @@ namespace ps
 {
     struct Image
     {
-        int w;
-        int h;
-        int n;
-        std::vector<unsigned char> buffer;
+        int width;
+        int height;
+        int channels;
+        std::vector<unsigned char> bitmap;
     };
 }

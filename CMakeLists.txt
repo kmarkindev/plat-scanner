@@ -18,7 +18,7 @@ add_executable(PlatScanner)
 add_subdirectory(3rdParty)
 add_subdirectory(Application)
 add_subdirectory(Dto)
-add_subdirectory(Modules)
+add_subdirectory(Services)
 
 target_link_libraries(PlatScanner PUBLIC
 	stb_image

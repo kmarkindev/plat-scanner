@@ -2,12 +2,13 @@
 
 namespace ps
 {
+    template<typename T>
     struct Rect
     {
-        int x;
-        int y;
-        int w;
-        int h;
+        T x;
+        T y;
+        T w;
+        T h;
     };
 }
 
