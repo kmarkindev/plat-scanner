@@ -1,9 +1,9 @@
 project(stb)
 
-add_library(stb_image STATIC)
+add_library(stb STATIC)
 
-target_sources(stb_image PUBLIC
-	stb_image.cpp
+target_sources(stb PUBLIC
+	stb_impl.cpp
 )
 
-target_include_directories(stb_image PUBLIC include)
+target_include_directories(stb PUBLIC include)
