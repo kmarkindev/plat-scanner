@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IImageProcessor.h"
+#include <stdexcept>
 
 namespace ps
 {

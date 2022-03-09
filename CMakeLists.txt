@@ -19,7 +19,7 @@ add_subdirectory(3rdParty)
 add_subdirectory(Sources)
 
 target_link_libraries(PlatScanner PUBLIC
-	stb_image
+	stb
 	libtesseract
 )
 
