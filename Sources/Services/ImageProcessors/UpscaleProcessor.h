@@ -1,6 +1,8 @@
 #pragma once
 
 #include "IImageProcessor.h"
+#include <stdexcept>
+#include <stb/stb_image_resize.h>
 
 namespace ps
 {
