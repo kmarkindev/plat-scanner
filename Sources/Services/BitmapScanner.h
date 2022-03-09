@@ -1,8 +1,7 @@
 #pragma once
 
 #include <string>
-#include <Image.h>
-#include <ScanOptions.h>
+#include <Dto/Image.h>
 #include <tesseract/baseapi.h>
 
 namespace ps

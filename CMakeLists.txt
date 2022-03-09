@@ -16,9 +16,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 add_executable(PlatScanner)
 
 add_subdirectory(3rdParty)
-add_subdirectory(Application)
-add_subdirectory(Dto)
-add_subdirectory(Services)
+add_subdirectory(Sources)
 
 target_link_libraries(PlatScanner PUBLIC
 	stb_image
