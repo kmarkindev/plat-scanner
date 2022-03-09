@@ -5,10 +5,13 @@
 
 namespace ps
 {
-    class GrayscaleProcessor : public IImageProcessor
+    class SharpenProcessor : public IImageProcessor
     {
     public:
+        explicit SharpenProcessor(double sharpenMultiplier);
         void Process(Image& image) const override;
+    private:
+        double _sharpenMultiplier;
     };
 }
 

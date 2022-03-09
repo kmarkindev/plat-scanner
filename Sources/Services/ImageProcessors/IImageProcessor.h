@@ -7,6 +7,6 @@ namespace ps
     class IImageProcessor
     {
     public:
-        virtual void Process(Image& image) = 0;
+        virtual void Process(Image& image) const = 0;
     };
 }

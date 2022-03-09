@@ -10,7 +10,7 @@ namespace ps
     {
     public:
         explicit UpscaleProcessor(double upscaleMultiplier);
-        void Process(Image& image) override;
+        void Process(Image& image) const override;
     private:
         double _upscaleMultiplier;
     };

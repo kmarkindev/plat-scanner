@@ -3,11 +3,11 @@
 ps::UpscaleProcessor::UpscaleProcessor(double upscaleMultiplier)
     : _upscaleMultiplier(upscaleMultiplier)
 {
-    if(upscaleMultiplier <= 0.0 || upscaleMultiplier > 1000.0)
-        throw std::invalid_argument("Multiplier cannot be less than or eq to 0.0 or more than 1000.0");
+    if(_upscaleMultiplier <= 0.0 || _upscaleMultiplier > 1000.0)
+        throw std::invalid_argument("Multiplier can't be less than or equal to 0.0 or more than 1000.0");
 }
 
-void ps::UpscaleProcessor::Process(ps::Image& image)
+void ps::UpscaleProcessor::Process(ps::Image& image) const
 {
     int newWidth = image.width * static_cast<int>(_upscaleMultiplier);
     int newHeight = image.height * static_cast<int>(_upscaleMultiplier);

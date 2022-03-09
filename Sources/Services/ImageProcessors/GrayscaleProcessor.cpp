@@ -1,6 +1,6 @@
 #include "GrayscaleProcessor.h"
 
-void ps::GrayscaleProcessor::Process(ps::Image& image)
+void ps::GrayscaleProcessor::Process(ps::Image& image) const
 {
     if(image.channels != 3)
         throw std::runtime_error("Cannot grayscale non RGB image");

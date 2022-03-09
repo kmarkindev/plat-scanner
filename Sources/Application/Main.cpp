@@ -3,6 +3,7 @@
 #include <Services/BitmapScanner.h>
 #include <Services/ImageProcessors/GrayscaleProcessor.h>
 #include <Services/ImageProcessors/UpscaleProcessor.h>
+#include <Services/ImageProcessors/SharpenProcessor.h>
 #include <vector>
 #include <iostream>
 
@@ -26,6 +27,9 @@ int main()
 
     ps::UpscaleProcessor upscaleProcessor(2.0);
     upscaleProcessor.Process(img);
+
+    ps::SharpenProcessor sharpenProcessor(75.0);
+    sharpenProcessor.Process(img);
 
     auto result = api.Scan(img);
     std::cout << result << std::endl;
