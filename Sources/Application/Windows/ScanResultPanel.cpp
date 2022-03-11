@@ -2,7 +2,8 @@
 
 void ps::ScanResultPanel::SetResult(ps::Image image, wxString text)
 {
-
+    //TODO: show result in ui
+    wxMessageBox(wxString::FromUTF8(text));
 }
 
 ps::ScanResultPanel::ScanResultPanel(wxWindow* parent)

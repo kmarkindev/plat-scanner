@@ -2,7 +2,8 @@
 
 ps::MainWindow::MainWindow()
     : wxFrame(nullptr, wxID_ANY, "Platimun Scanner | powered by kmarkindev", wxDefaultPosition, wxSize(848, 480),
-    wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxCLOSE_BOX | wxCAPTION | wxCLIP_CHILDREN)
+    wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxCLOSE_BOX | wxCAPTION | wxCLIP_CHILDREN),
+    _relicScanner("rus")
 {
     SetupLayout();
     RegisterHotkeys();
@@ -75,26 +76,7 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
 {
     auto itemsCount = event.GetId();
 
-    ps::ImageScanner api("rus");
-
-    ps::RelicPartPositionsFinder positionsFinder;
-    auto rect = positionsFinder.GetPartPosition(0, {
-        itemsCount,
-        {1920, 1080},
-        {16, 9}
-    });
-
-    ps::ScreenshotTaker screenshotTaker;
-    ps::Image img = screenshotTaker.TakeScreenRect(rect);
-
-    ps::GrayscaleProcessor grayscaleProcessor;
-    grayscaleProcessor.Process(img);
-
-    ps::UpscaleProcessor upscaleProcessor(2.0);
-    upscaleProcessor.Process(img);
-
-    ps::SharpenProcessor sharpenProcessor(1.25);
-    sharpenProcessor.Process(img);
+    auto result = _relicScanner.ScanRelics(itemsCount, {1920, 1080}, {16, 9});
 
     if(_optionsPanel->IsMoveOnTopEnabled())
     {
@@ -104,12 +86,25 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
         Show(true);
     }
 
-    auto result = api.Scan(img);
-    //wxMessageBox(wxString::FromUTF8(result));
+    for(int i = 0; i < result.items.size(); ++i)
+        _scanResultPanels[i]->SetResult(result.items[i].second, result.items[i].first);
+
+    //TODO: find items ids, fetch prices, show them in ui.
 
     if(_optionsPanel->IsDebugDataSavingEnabled())
     {
+        //TODO:
+
         ps::ImageWriter imgWriter;
-        imgWriter.WriteToDisk("output.png", img);
+
+        int i = 0;
+        for(auto [text, img] : result.items)
+        {
+            std::stringstream ss;
+            // need to minus i because time(nullptr) returns same values from time to time
+            ss << "output (" << std::to_string(time(nullptr) - i++) << ").png";
+            std::string filename = ss.str();
+            imgWriter.WriteToDisk(filename, img);
+        }
     }
 }

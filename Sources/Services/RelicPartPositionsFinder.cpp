@@ -1,6 +1,6 @@
 #include "RelicPartPositionsFinder.h"
 
-glm::ivec4 ps::RelicPartPositionsFinder::GetPartPosition(int partNumber, ps::RelicFinderParams params)
+glm::ivec4 ps::RelicPartPositionsFinder::GetPartPosition(int partNumber, ps::RelicFinderParams params) const
 {
     if(partNumber < 0 || partNumber > 3)
         throw std::invalid_argument("partIndex can't be less than 0 or more than 3");
@@ -80,7 +80,7 @@ glm::ivec4 ps::RelicPartPositionsFinder::GetPartPosition(int partNumber, ps::Rel
     return result;
 }
 
-std::vector<glm::ivec4> ps::RelicPartPositionsFinder::GetPartsPositions(ps::RelicFinderParams params)
+std::vector<glm::ivec4> ps::RelicPartPositionsFinder::GetPartsPositions(ps::RelicFinderParams params) const
 {
     std::vector<glm::ivec4> result(params.partsCount);
 
