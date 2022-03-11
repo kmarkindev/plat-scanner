@@ -6,11 +6,11 @@
 
 namespace ps
 {
-    class BitmapScanner
+    class ImageScanner
     {
     public:
-        BitmapScanner(std::string lang);
-        ~BitmapScanner();
+        ImageScanner(std::string lang);
+        ~ImageScanner();
         [[nodiscard]] std::string Scan(const Image& image) const;
     private:
         mutable tesseract::TessBaseAPI _api;

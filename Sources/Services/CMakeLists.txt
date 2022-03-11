@@ -1,6 +1,10 @@
 add_subdirectory(ImageProcessors)
 
 target_sources(PlatScanner PUBLIC
-	BitmapScanner.cpp
-	BitmapScanner.h
+	ImageScanner.cpp
+	ImageScanner.h
+	ImageWriter.cpp
+	ImageWriter.h
+	ImageReader.cpp
+	ImageReader.h
 )
