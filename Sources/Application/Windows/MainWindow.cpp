@@ -15,7 +15,6 @@ void ps::MainWindow::SetupLayout()
     auto resultsSizer = new wxBoxSizer(wxHORIZONTAL);
 
     _hotkeyStatusPanel = new HotkeyStatusPanel(this);
-    _hotkeyStatusPanel->SetBackgroundColour(wxColour(52, 124, 251));
     _optionsPanel = new OptionsPanel(this);
 
     for(int i = 0; i < 4; ++i)

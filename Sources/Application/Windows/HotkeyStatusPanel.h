@@ -9,6 +9,8 @@ namespace ps
     public:
         explicit HotkeyStatusPanel(wxWindow* parent);
         void SetStatus(bool isActive);
+    private:
+        wxStaticText* _staticText;
     };
 }
 
