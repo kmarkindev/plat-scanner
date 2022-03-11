@@ -10,6 +10,9 @@ namespace ps
         explicit OptionsPanel(wxWindow* parent);
         bool IsDebugDataSavingEnabled();
         bool IsMoveOnTopEnabled();
+    private:
+        wxCheckBox* _shouldMoveOnTopCheckbox;
+        wxCheckBox* _shouldSaveDebugInfoCheckbox;
     };
 }
 
