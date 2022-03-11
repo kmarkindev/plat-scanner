@@ -5,6 +5,13 @@
 #include <Application/Windows/SearchResultPanel.h>
 #include <Application/Windows/HotkeyStatusPanel.h>
 #include <Application/Windows/OptionsPanel.h>
+#include <Services/ScreenshotTaker.h>
+#include <Services/ImageScanner.h>
+#include <Services/RelicPartPositionsFinder.h>
+#include <Services/ImageWriter.h>
+#include <Services/ImageProcessors/GrayscaleProcessor.h>
+#include <Services/ImageProcessors/SharpenProcessor.h>
+#include <Services/ImageProcessors/UpscaleProcessor.h>
 #include <array>
 
 namespace ps
@@ -20,6 +27,9 @@ namespace ps
         OptionsPanel* _optionsPanel;
 
         void SetupLayout();
+        void RegisterHotkeys();
+
+        void HotkeyHandler(wxKeyEvent& event);
     };
 }
 

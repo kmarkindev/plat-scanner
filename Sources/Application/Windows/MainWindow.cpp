@@ -5,6 +5,7 @@ ps::MainWindow::MainWindow()
     wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxCLOSE_BOX | wxCAPTION | wxCLIP_CHILDREN)
 {
     SetupLayout();
+    RegisterHotkeys();
 }
 
 void ps::MainWindow::SetupLayout()
@@ -15,7 +16,6 @@ void ps::MainWindow::SetupLayout()
     _hotkeyStatusPanel = new HotkeyStatusPanel(this);
     _hotkeyStatusPanel->SetBackgroundColour(wxColour(52, 124, 251));
     _optionsPanel = new OptionsPanel(this);
-    _optionsPanel->SetBackgroundColour(wxColour(65, 125, 24));
 
     for(int i = 0; i < 4; ++i)
     {
@@ -40,4 +40,76 @@ void ps::MainWindow::SetupLayout()
     topSizer->Add(_optionsPanel, 1, wxEXPAND | wxFIXED_MINSIZE);
 
     SetSizerAndFit(topSizer);
+}
+
+void ps::MainWindow::RegisterHotkeys()
+{
+    // Make sure that we have registered all needed hotkeys
+    if(!RegisterHotKey(4, wxMOD_CONTROL, 0x38))
+    {
+        _hotkeyStatusPanel->SetStatus(false);
+        return;
+    }
+    if(!RegisterHotKey(3, wxMOD_CONTROL, 0x39))
+    {
+        _hotkeyStatusPanel->SetStatus(false);
+        UnregisterHotKey(4);
+        return;
+    }
+    if(!RegisterHotKey(2, wxMOD_CONTROL, 0x30))
+    {
+        _hotkeyStatusPanel->SetStatus(false);
+        UnregisterHotKey(4);
+        UnregisterHotKey(3);
+        return;
+    }
+
+    Bind(wxEVT_HOTKEY, &MainWindow::HotkeyHandler, this, 4);
+    Bind(wxEVT_HOTKEY, &MainWindow::HotkeyHandler, this, 3);
+    Bind(wxEVT_HOTKEY, &MainWindow::HotkeyHandler, this, 2);
+
+    _hotkeyStatusPanel->SetStatus(true);
+}
+
+void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
+{
+    auto itemsCount = event.GetId();
+
+    ps::ImageScanner api("rus");
+
+    ps::RelicPartPositionsFinder positionsFinder;
+    auto rect = positionsFinder.GetPartPosition(0, {
+        itemsCount,
+        {1920, 1080},
+        {16, 9}
+    });
+
+    ps::ScreenshotTaker screenshotTaker;
+    ps::Image img = screenshotTaker.TakeScreenRect(rect);
+
+    ps::GrayscaleProcessor grayscaleProcessor;
+    grayscaleProcessor.Process(img);
+
+    ps::UpscaleProcessor upscaleProcessor(2.0);
+    upscaleProcessor.Process(img);
+
+    ps::SharpenProcessor sharpenProcessor(1.25);
+    sharpenProcessor.Process(img);
+
+    if(_optionsPanel->IsMoveOnTopEnabled())
+    {
+        Iconize(false);
+        SetFocus();
+        Raise();
+        Show(true);
+    }
+
+    auto result = api.Scan(img);
+    //wxMessageBox(wxString::FromUTF8(result));
+
+    if(_optionsPanel->IsDebugDataSavingEnabled())
+    {
+        ps::ImageWriter imgWriter;
+        imgWriter.WriteToDisk("output.png", img);
+    }
 }
