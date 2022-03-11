@@ -10,7 +10,7 @@ namespace ps
     class ImageReader
     {
     public:
-        Image ReadFromDisk(std::string_view filename);
+        Image ReadFromDisk(std::string_view filename) const;
     };
 }
 

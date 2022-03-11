@@ -7,4 +7,6 @@ target_sources(PlatScanner PUBLIC
 	ImageWriter.h
 	ImageReader.cpp
 	ImageReader.h
+	ScreenshotTaker.cpp
+	ScreenshotTaker.h
 )

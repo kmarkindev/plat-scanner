@@ -1,6 +1,6 @@
 #include "ImageReader.h"
 
-ps::Image ps::ImageReader::ReadFromDisk(std::string_view filename)
+ps::Image ps::ImageReader::ReadFromDisk(std::string_view filename) const
 {
     Image image;
 
