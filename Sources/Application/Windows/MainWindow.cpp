@@ -46,18 +46,18 @@ void ps::MainWindow::SetupLayout()
 void ps::MainWindow::RegisterHotkeys()
 {
     // Make sure that we have registered all needed hotkeys
-    if(!RegisterHotKey(4, wxMOD_CONTROL, 0x38))
+    if(!RegisterHotKey(4, wxMOD_CONTROL, static_cast<unsigned>('0')))
     {
         _hotkeyStatusPanel->SetStatus(false);
         return;
     }
-    if(!RegisterHotKey(3, wxMOD_CONTROL, 0x39))
+    if(!RegisterHotKey(3, wxMOD_CONTROL, static_cast<unsigned>('9')))
     {
         _hotkeyStatusPanel->SetStatus(false);
         UnregisterHotKey(4);
         return;
     }
-    if(!RegisterHotKey(2, wxMOD_CONTROL, 0x30))
+    if(!RegisterHotKey(2, wxMOD_CONTROL, static_cast<unsigned>('8')))
     {
         _hotkeyStatusPanel->SetStatus(false);
         UnregisterHotKey(4);
