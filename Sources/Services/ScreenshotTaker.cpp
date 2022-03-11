@@ -15,8 +15,10 @@ ps::Image ps::ScreenshotTaker::TakeWholeScreen() const
     memDC.SelectObject(wxNullBitmap);
 
     auto image = screenshot.ConvertToImage();
+
     // Make sure there is no alpha channel
-    image.ClearAlpha();
+    if(image.HasAlpha())
+        image.ClearAlpha();
 
     auto width = image.GetWidth();
     auto height = image.GetHeight();

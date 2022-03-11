@@ -5,8 +5,11 @@ bool ps::Application::OnInit()
 	std::setlocale(LC_ALL, "en_US.UTF-8");
     ps::ImageScanner api("rus");
 
-    ps::ImageReader imgReader;
-    ps::Image img = imgReader.ReadFromDisk("cropped4.png");
+    ps::ScreenshotTaker screenshotTaker;
+    ps::Image img = screenshotTaker.TakeWholeScreen();
+
+//    ps::ImageReader imgReader;
+//    ps::Image img = imgReader.ReadFromDisk("cropped4.png");
 
     ps::GrayscaleProcessor grayscaleProcessor;
     grayscaleProcessor.Process(img);

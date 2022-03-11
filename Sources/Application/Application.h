@@ -2,6 +2,7 @@
 
 #include <wx/wx.h>
 #include <stb/stb_image.h>
+#include <Services/ScreenshotTaker.h>
 #include <Services/ImageWriter.h>
 #include <Services/ImageReader.h>
 #include <Services/ImageScanner.h>
