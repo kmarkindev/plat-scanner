@@ -9,6 +9,7 @@
 #include <Services/ImageProcessors/GrayscaleProcessor.h>
 #include <Services/ImageProcessors/UpscaleProcessor.h>
 #include <Services/ImageProcessors/SharpenProcessor.h>
+#include <Services/RelicPartPositionsFinder.h>
 #include <vector>
 #include <iostream>
 

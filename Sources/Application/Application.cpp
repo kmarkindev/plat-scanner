@@ -5,8 +5,15 @@ bool ps::Application::OnInit()
 	std::setlocale(LC_ALL, "en_US.UTF-8");
     ps::ImageScanner api("rus");
 
+    ps::RelicPartPositionsFinder positionsFinder;
+    auto rect = positionsFinder.GetPartPosition(0, {
+        3,
+        {1920, 1080},
+        {16, 9}
+    });
+
     ps::ScreenshotTaker screenshotTaker;
-    ps::Image img = screenshotTaker.TakeWholeScreen();
+    ps::Image img = screenshotTaker.TakeScreenRect(rect);
 
 //    ps::ImageReader imgReader;
 //    ps::Image img = imgReader.ReadFromDisk("cropped4.png");

@@ -9,4 +9,6 @@ target_sources(PlatScanner PUBLIC
 	ImageReader.h
 	ScreenshotTaker.cpp
 	ScreenshotTaker.h
+	RelicPartPositionsFinder.cpp
+	RelicPartPositionsFinder.h
 )
