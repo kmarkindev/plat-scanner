@@ -6,4 +6,5 @@ target_sources(PlatScanner PUBLIC
 	UpscaleProcessor.h
 	SharpenProcessor.cpp
 	SharpenProcessor.h
+	KernelProcessor.h
 )

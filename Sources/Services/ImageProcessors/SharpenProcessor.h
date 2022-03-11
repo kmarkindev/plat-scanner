@@ -2,16 +2,18 @@
 
 #include "IImageProcessor.h"
 #include <stdexcept>
+#include <glm/glm.hpp>
+#include "KernelProcessor.h"
 
 namespace ps
 {
     class SharpenProcessor : public IImageProcessor
     {
     public:
-        explicit SharpenProcessor(double sharpenMultiplier);
+        explicit SharpenProcessor(float sharpenMultiplier);
         void Process(Image& image) const override;
     private:
-        double _sharpenMultiplier;
+        float _sharpenMultiplier;
     };
 }
 

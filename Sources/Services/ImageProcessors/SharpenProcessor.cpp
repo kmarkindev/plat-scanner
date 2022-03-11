@@ -1,6 +1,6 @@
 #include "SharpenProcessor.h"
 
-ps::SharpenProcessor::SharpenProcessor(double sharpenMultiplier)
+ps::SharpenProcessor::SharpenProcessor(float sharpenMultiplier)
     : _sharpenMultiplier(sharpenMultiplier)
 {
     if(_sharpenMultiplier < 0.0 || _sharpenMultiplier > 100.0)
@@ -9,5 +9,20 @@ ps::SharpenProcessor::SharpenProcessor(double sharpenMultiplier)
 
 void ps::SharpenProcessor::Process(ps::Image& image) const
 {
-    //TODO: implement sharpen to improve scanning
+    // https://www.taylorpetrick.com/blog/post/convolution-part3#sharpen
+
+    constexpr glm::mat3 first = {
+        {0, 0, 0},
+        {0, 1, 0},
+        {0, 0, 0}
+    };
+    constexpr glm::mat3 second = {
+        {0, -1, 0},
+        {-1, 4, -1},
+        {0, -1, 0}
+    };
+    glm::mat3 kernel = first + second * _sharpenMultiplier;
+
+    auto processor = ps::KernelProcessor<glm::mat3>(kernel);
+    processor.Process(image);
 }

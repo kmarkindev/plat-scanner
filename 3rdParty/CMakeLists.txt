@@ -8,3 +8,5 @@ set(wxBUILD_BENCHMARKS OFF)
 set(wxBUILD_MONOLITHIC OFF)
 set(wxBUILD_SHARED OFF)
 add_subdirectory(wxWidgets)
+
+add_subdirectory(glm)

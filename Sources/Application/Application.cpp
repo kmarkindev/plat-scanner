@@ -21,7 +21,7 @@ bool ps::Application::OnInit()
     ps::UpscaleProcessor upscaleProcessor(2.0);
     upscaleProcessor.Process(img);
 
-    ps::SharpenProcessor sharpenProcessor(75.0);
+    ps::SharpenProcessor sharpenProcessor(1.25);
     sharpenProcessor.Process(img);
 
     auto result = api.Scan(img);
