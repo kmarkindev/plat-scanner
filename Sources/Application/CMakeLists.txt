@@ -3,3 +3,5 @@ target_sources(PlatScanner PUBLIC
 	Application.cpp
 	Application.h
 )
+
+add_subdirectory(Windows)
