@@ -37,4 +37,4 @@ target_include_directories(PlatScanner PUBLIC "${TESSERACT_BINARY_DIR}/include")
 
 add_custom_command(TARGET PlatScanner POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
-	${CMAKE_SOURCE_DIR}/TessData/ $<TARGET_FILE_DIR:PlatScanner>/TessData/)
+	${CMAKE_SOURCE_DIR}/Data/ $<TARGET_FILE_DIR:PlatScanner>/Data/)

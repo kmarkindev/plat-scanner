@@ -8,6 +8,13 @@ namespace ps
 {
     struct RelicScanResult
     {
-        std::vector<std::pair<std::string, ps::Image>> items;
+        struct ItemScanData
+        {
+            Image scannedImage;
+            Image processedImage;
+            std::string scannedText;
+        };
+
+        std::vector<ItemScanData> items;
     };
 }

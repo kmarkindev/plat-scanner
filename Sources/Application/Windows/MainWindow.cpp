@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
 ps::MainWindow::MainWindow()
-    : wxFrame(nullptr, wxID_ANY, "Platimun Scanner | powered by kmarkindev", wxDefaultPosition, wxSize(848, 480),
+    : wxFrame(nullptr, wxID_ANY, "Platimun Scanner | powered by kmarkindev", wxDefaultPosition, wxDefaultSize,
     wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxCLOSE_BOX | wxCAPTION | wxCLIP_CHILDREN),
     _relicScanner("rus")
 {
@@ -20,14 +20,12 @@ void ps::MainWindow::SetupLayout()
     for(int i = 0; i < 4; ++i)
     {
         auto panel = new wxPanel(this, wxID_ANY);
-        panel->SetBackgroundColour(wxColour(35 * i, 72, 132));
+        panel->SetBackgroundColour(wxColour(200, 200, 200));
         panel->SetSize(wxSize(350, 600));
-        resultsSizer->Add(panel, 1, wxSHAPED | wxALIGN_CENTRE | wxFIXED_MINSIZE);
+        resultsSizer->Add(panel, 1, wxSHAPED | wxALIGN_CENTRE | wxLEFT | wxRIGHT, 5);
 
         _scanResultPanels[i] = new ScanResultPanel(panel);
-        _scanResultPanels[i]->SetBackgroundColour(wxColour(35 * i, 10 * i, 132));
         _searchResultPanels[i] = new SearchResultPanel(panel);
-        _searchResultPanels[i]->SetBackgroundColour(wxColour(87, 35 * i, 20 * i));
 
         auto sizer = new wxBoxSizer(wxVERTICAL);
         sizer->Add(_scanResultPanels[i], 3, wxEXPAND);
@@ -39,6 +37,7 @@ void ps::MainWindow::SetupLayout()
     topSizer->Add(resultsSizer, 10, wxEXPAND);
     topSizer->Add(_optionsPanel, 1, wxEXPAND | wxFIXED_MINSIZE);
 
+    topSizer->SetMinSize(wxSize(900, 480));
     SetSizerAndFit(topSizer);
 }
 
@@ -85,8 +84,11 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
         Show(true);
     }
 
+    for(auto panel : _scanResultPanels)
+        panel->ResetResult();
+
     for(int i = 0; i < result.items.size(); ++i)
-        _scanResultPanels[i]->SetResult(result.items[i].second, result.items[i].first);
+        _scanResultPanels[i]->SetResult(result.items[i].scannedImage, wxString::FromUTF8(result.items[i].scannedText));
 
     //TODO: find items ids, fetch prices, show them in ui.
 
@@ -97,13 +99,25 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
         ps::ImageWriter imgWriter;
 
         int i = 0;
-        for(auto [text, img] : result.items)
+
+        wxFileName path(wxStandardPaths::Get().GetExecutablePath());
+        path.AppendDir("Tmp");
+        path.AppendDir("Debug");
+
+        for(auto [scannedImage, processedImage, scannedText] : result.items)
         {
-            std::stringstream ss;
             // need to minus i because time(nullptr) returns same values from time to time
-            ss << "output (" << std::to_string(time(nullptr) - i++) << ").png";
-            std::string filename = ss.str();
-            imgWriter.WriteToDisk(filename, img);
+            auto id = std::to_string(time(nullptr) - i++);
+
+            auto currentPath = path;
+            currentPath.AppendDir(id);
+            currentPath.Mkdir(wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL);
+
+            currentPath.SetFullName("scannedImage.png");
+            auto p = currentPath.GetFullPath().ToStdString();
+            imgWriter.WriteToDisk(currentPath.GetFullPath().ToStdString(), scannedImage);
+            currentPath.SetFullName("processedImage.png");
+            imgWriter.WriteToDisk(currentPath.GetFullPath().ToStdString(), processedImage);
         }
     }
 }

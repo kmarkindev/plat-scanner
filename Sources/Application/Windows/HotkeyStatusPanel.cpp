@@ -4,7 +4,7 @@ void ps::HotkeyStatusPanel::SetStatus(bool isActive)
 {
     if(isActive)
         _staticText->SetLabel(wxT("Press CTRL + 0 to scan 4 items, CTRL + 9 to scan 3 items "
-            "and CTRL 8 to scan 2 items."));
+            "and CTRL + 8 to scan 2 items."));
     else
         _staticText->SetLabel(
             wxT("There is an application on your PC, that has already used needed hotkeys. "
@@ -23,7 +23,7 @@ ps::HotkeyStatusPanel::HotkeyStatusPanel(wxWindow* parent)
     font.SetWeight(wxFONTWEIGHT_BOLD);
     _staticText->SetFont(font);
 
-    auto sizer = new wxBoxSizer(wxVERTICAL);
+    auto sizer = new wxBoxSizer(wxHORIZONTAL);
     sizer->Add(_staticText, 1, wxEXPAND);
     SetSizerAndFit(sizer);
 }

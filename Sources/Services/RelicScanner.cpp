@@ -3,7 +3,7 @@
 ps::RelicScanResult ps::RelicScanner::ScanRelics(int itemsCount, std::pair<int, int> resolution, std::pair<int, int> aspectRatio) const
 {
     RelicScanResult result = {
-        std::vector<std::pair<std::string, ps::Image>>(itemsCount)
+        std::vector<RelicScanResult::ItemScanData>(itemsCount)
     };
 
     for(int i = 0; i < itemsCount; ++i)
@@ -14,15 +14,16 @@ ps::RelicScanResult ps::RelicScanner::ScanRelics(int itemsCount, std::pair<int, 
             aspectRatio
         });
 
-        ps::Image image = _screenshotTaker.TakeScreenRect(rect);
+        ps::Image scannedImage = _screenshotTaker.TakeScreenRect(rect);
 
+        ps::Image image = scannedImage;
         _grayscaleProcessor.Process(image);
         _upscaleProcessor.Process(image);
         _sharpenProcessor.Process(image);
 
         auto text = _imageScanner.Scan(image);
 
-        result.items[i] = {text, image};
+        result.items[i] = {scannedImage, image, text};
     }
 
     return result;
