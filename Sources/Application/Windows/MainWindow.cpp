@@ -34,7 +34,7 @@ void ps::MainWindow::SetupLayout()
     }
 
     topSizer->Add(_hotkeyStatusPanel, 1, wxEXPAND | wxFIXED_MINSIZE);
-    topSizer->Add(resultsSizer, 10, wxEXPAND);
+    topSizer->Add(resultsSizer, 10, wxEXPAND | wxTOP | wxBOTTOM, 5);
     topSizer->Add(_optionsPanel, 1, wxEXPAND | wxFIXED_MINSIZE);
 
     topSizer->SetMinSize(wxSize(900, 480));
