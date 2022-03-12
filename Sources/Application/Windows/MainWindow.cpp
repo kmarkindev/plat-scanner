@@ -43,6 +43,7 @@ void ps::MainWindow::SetupLayout()
 
 void ps::MainWindow::RegisterHotkeys()
 {
+    //TODO: allow to change hotkeys
     // Make sure that we have registered all needed hotkeys
     if(!RegisterHotKey(4, wxMOD_CONTROL, static_cast<unsigned>('0')))
     {
@@ -74,6 +75,7 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
 {
     auto itemsCount = event.GetId();
 
+    //TODO: grab resolution and aspect ratio from settings
     auto result = _relicScanner.ScanRelics(itemsCount, {1920, 1080}, {16, 9});
 
     if(_optionsPanel->IsMoveOnTopEnabled())
