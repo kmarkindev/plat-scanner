@@ -1,4 +1,5 @@
 add_subdirectory(ImageProcessors)
+add_subdirectory(RelicDatabase)
 
 target_sources(PlatScanner PUBLIC
 	ImageScanner.cpp

@@ -3,4 +3,5 @@ target_sources(PlatScanner PUBLIC
 	RelicFinderParams.h
 	SearchResult.h
 	RelicScanResult.h
+	RelicItem.h
 )
