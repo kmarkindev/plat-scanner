@@ -10,3 +10,6 @@
 [submodule "3rdParty/json"]
 	path = 3rdParty/json
 	url = https://github.com/nlohmann/json.git
+[submodule "3rdParty/fuzzywuzzy"]
+	path = 3rdParty/fuzzywuzzy
+	url = https://github.com/tmplt/fuzzywuzzy.git
