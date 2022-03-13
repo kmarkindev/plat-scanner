@@ -14,4 +14,6 @@ target_sources(PlatScanner PUBLIC
 	RelicPartPositionsFinder.h
 	RelicScanner.cpp
 	RelicScanner.h
+	WarframeMarketApi.cpp
+	WarframeMarketApi.h
 )
