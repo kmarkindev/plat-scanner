@@ -1,9 +1,9 @@
 #include "MainWindow.h"
 
-ps::MainWindow::MainWindow()
+ps::MainWindow::MainWindow(const RelicItemsDatabase& db)
     : wxFrame(nullptr, wxID_ANY, "Platimun Scanner | powered by kmarkindev", wxDefaultPosition, wxDefaultSize,
     wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxCLOSE_BOX | wxCAPTION | wxCLIP_CHILDREN),
-    _relicScanner("rus")
+    _relicScanner("ru"), _wmApi("ru", "pc"), _relicSearcher(db)
 {
     SetupLayout();
     RegisterHotkeys();

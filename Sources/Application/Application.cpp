@@ -10,11 +10,20 @@ bool ps::Application::OnInit()
     {
         RelicDatabaseCreator creator("ru", "pc");
         RelicDatabaseWriter writer;
-        writer.WriteDatabaseToDisk(creator.CreateItemsDatabaseUsingWfApi(), "Tmp/Db.rdb");
-    }
+        auto db = creator.CreateItemsDatabaseUsingWfApi();
+        writer.WriteDatabaseToDisk(db, "Tmp/Db.rdb");
 
-    auto window = new MainWindow();
-    window->Show();
+        auto window = new MainWindow(db);
+        window->Show();
+    }
+    else
+    {
+        RelicDatabaseReader reader;
+        auto db = reader.ReadDatabaseFromDisk("Tmp/Db.rdb");
+
+        auto window = new MainWindow(db);
+        window->Show();
+    }
 
 	return true;
 }

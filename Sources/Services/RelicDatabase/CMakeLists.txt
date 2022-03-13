@@ -9,4 +9,6 @@ target_sources(PlatScanner PUBLIC
 	RelicDatabaseJsonParser.h
 	RelicDatabasePrimeItemsFilter.h
 	RelicDatabasePrimeItemsFilter.cpp
+	RelicDatabaseSearcher.cpp
+	RelicDatabaseSearcher.h
 )

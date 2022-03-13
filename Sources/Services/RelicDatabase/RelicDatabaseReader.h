@@ -11,6 +11,8 @@ namespace ps
     {
     public:
         RelicItemsDatabase ReadDatabaseFromDisk(const std::string& filename);
+    private:
+        std::string ReadString(std::ifstream& fs);
     };
 }
 

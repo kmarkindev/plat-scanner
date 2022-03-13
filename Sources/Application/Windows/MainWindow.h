@@ -4,6 +4,8 @@
 #include <Application/Windows/ScanResultPanel.h>
 #include <Application/Windows/SearchResultPanel.h>
 #include <Application/Windows/HotkeyStatusPanel.h>
+#include <Services/RelicDatabase/RelicDatabaseSearcher.h>
+#include <Services/WarframeMarketApi.h>
 #include <Application/Windows/OptionsPanel.h>
 #include <Services/RelicScanner.h>
 #include <Services/ImageWriter.h>
@@ -16,7 +18,7 @@ namespace ps
     class MainWindow : public wxFrame
     {
     public:
-        explicit MainWindow();
+        explicit MainWindow(const RelicItemsDatabase& db);
     private:
         HotkeyStatusPanel* _hotkeyStatusPanel;
         std::array<ScanResultPanel*, 4> _scanResultPanels;
@@ -24,6 +26,8 @@ namespace ps
         OptionsPanel* _optionsPanel;
 
         RelicScanner _relicScanner;
+        RelicDatabaseSearcher _relicSearcher;
+        WarframeMarketApi _wmApi;
 
         void SetupLayout();
         void RegisterHotkeys();

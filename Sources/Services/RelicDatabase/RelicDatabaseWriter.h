@@ -12,6 +12,8 @@ namespace ps
     {
     public:
         void WriteDatabaseToDisk(const RelicItemsDatabase& db, std::string filename);
+    private:
+        void writeString(const std::string& str, std::ofstream& fs);
     };
 }
 
