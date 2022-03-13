@@ -1,8 +1,17 @@
 #pragma once
 
-class RelicDatabaseReader
-{
+#include <Dto/RelicItemsDatabase.h>
+#include <string>
+#include <fstream>
+#include <stdexcept>
 
-};
+namespace ps
+{
+    class RelicDatabaseReader
+    {
+    public:
+        RelicItemsDatabase ReadDatabaseFromDisk(const std::string& filename);
+    };
+}
 
 
