@@ -2,6 +2,7 @@
 
 #include <Dto/RelicItemsDatabase.h>
 #include <string>
+#include <fuzzywuzzy.hpp>
 
 namespace ps
 {

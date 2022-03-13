@@ -92,6 +92,12 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
     for(int i = 0; i < result.items.size(); ++i)
         _scanResultPanels[i]->SetResult(result.items[i].scannedImage, wxString::FromUTF8(result.items[i].scannedText));
 
+    for(const auto& item : result.items)
+    {
+        auto searchResult = _relicSearcher.SearchForBestMatch(item.scannedText);
+        wxMessageBox(wxString::FromUTF8(searchResult.name));
+    }
+
     //TODO: find items ids, fetch prices, show them in ui.
 
     if(_optionsPanel->IsDebugDataSavingEnabled())

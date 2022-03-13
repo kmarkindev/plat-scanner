@@ -3,6 +3,7 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
     <libraryRoots>
+      <file path="$PROJECT_DIR$/3rdParty/fuzzywuzzy" />
       <file path="$PROJECT_DIR$/3rdParty/glm" />
       <file path="$PROJECT_DIR$/3rdParty/json" />
       <file path="$PROJECT_DIR$/3rdParty/stb" />

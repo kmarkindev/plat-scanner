@@ -8,5 +8,22 @@ ps::RelicDatabaseSearcher::RelicDatabaseSearcher(const ps::RelicItemsDatabase& d
 
 ps::RelicItem ps::RelicDatabaseSearcher::SearchForBestMatch(std::string itemName)
 {
-    return {};
+    const RelicItem* bestResult = nullptr;
+    unsigned bestRatio = -1;
+
+    for(const auto& item : _db.items)
+    {
+        auto ratio = fuzz::partial_ratio(itemName, item.name);
+
+        if(ratio > bestRatio)
+        {
+            bestRatio = ratio;
+            bestResult = &item;
+
+            if(ratio > 99)
+                break;
+        }
+    }
+
+    return *bestResult;
 }

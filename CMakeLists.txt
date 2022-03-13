@@ -29,6 +29,7 @@ target_link_libraries(PlatScanner PUBLIC
 	wx::base
 	glm
 	nlohmann_json::nlohmann_json
+	fuzzywuzzy
 )
 
 # tesseract generates version.h header
