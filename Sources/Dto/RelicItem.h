@@ -8,5 +8,6 @@ namespace ps
     {
         std::string url_name;
         std::string name;
+        std::string cleanName;
     };
 }

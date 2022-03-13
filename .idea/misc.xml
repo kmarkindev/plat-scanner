@@ -6,6 +6,7 @@
       <file path="$PROJECT_DIR$/3rdParty/fuzzywuzzy" />
       <file path="$PROJECT_DIR$/3rdParty/glm" />
       <file path="$PROJECT_DIR$/3rdParty/json" />
+      <file path="$PROJECT_DIR$/3rdParty/rapidfuzz-cpp" />
       <file path="$PROJECT_DIR$/3rdParty/stb" />
       <file path="$PROJECT_DIR$/3rdParty/tesseract" />
       <file path="$PROJECT_DIR$/3rdParty/wxWidgets" />

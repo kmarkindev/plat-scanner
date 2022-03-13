@@ -18,6 +18,7 @@ ps::RelicItemsDatabase ps::RelicDatabaseReader::ReadDatabaseFromDisk(const std::
     {
         item.url_name = ReadString(fstream);
         item.name = ReadString(fstream);
+        item.cleanName = ReadString(fstream);
     }
 
     return result;

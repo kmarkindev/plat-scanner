@@ -2,7 +2,8 @@
 
 #include <Dto/RelicItemsDatabase.h>
 #include <string>
-#include <fuzzywuzzy.hpp>
+#include <rapidfuzz/fuzz.hpp>
+#include "RelicItemNameCleaner.h"
 
 namespace ps
 {
@@ -10,9 +11,10 @@ namespace ps
     {
     public:
         explicit RelicDatabaseSearcher(const RelicItemsDatabase& db);
-        RelicItem SearchForBestMatch(std::string itemName);
+        std::pair<bool, ps::RelicItem> SearchForBestMatch(std::string itemName);
     private:
         RelicItemsDatabase _db;
+        RelicItemNameCleaner _nameCleaner;
     };
 }
 

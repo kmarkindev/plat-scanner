@@ -6,24 +6,38 @@ ps::RelicDatabaseSearcher::RelicDatabaseSearcher(const ps::RelicItemsDatabase& d
 
 }
 
-ps::RelicItem ps::RelicDatabaseSearcher::SearchForBestMatch(std::string itemName)
+std::pair<bool, ps::RelicItem> ps::RelicDatabaseSearcher::SearchForBestMatch(std::string itemName)
 {
-    const RelicItem* bestResult = nullptr;
-    unsigned bestRatio = -1;
+    std::vector<const RelicItem*> possibleResults;
+
+    itemName = _nameCleaner.ClearItemName(itemName);
 
     for(const auto& item : _db.items)
     {
-        auto ratio = fuzz::partial_ratio(itemName, item.name);
+        auto ratio = rapidfuzz::fuzz::partial_ratio(itemName, item.cleanName);
+
+        if(ratio > 70.0)
+            possibleResults.push_back(&item);
+    }
+
+    if(possibleResults.empty())
+        return {false, {}};
+
+    double bestRatio = -1.0;
+    const RelicItem* bestResult = nullptr;
+    for(const auto& item : possibleResults)
+    {
+        auto ratio = rapidfuzz::fuzz::token_sort_ratio(itemName, item->cleanName);
 
         if(ratio > bestRatio)
         {
             bestRatio = ratio;
-            bestResult = &item;
+            bestResult = item;
 
-            if(ratio > 99)
+            if(ratio > 99.0)
                 break;
         }
     }
 
-    return *bestResult;
+    return {true, *bestResult};
 }

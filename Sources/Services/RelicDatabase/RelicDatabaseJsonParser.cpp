@@ -13,7 +13,8 @@ ps::RelicItemsDatabase ps::RelicDatabaseJsonParser::ParseFromString(std::string 
         auto itemJson = json[i];
         db.items[i] = {
             itemJson["url_name"],
-            itemJson["item_name"]
+            itemJson["item_name"],
+            {}
         };
     }
 

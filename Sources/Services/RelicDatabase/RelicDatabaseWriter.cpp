@@ -20,6 +20,7 @@ void ps::RelicDatabaseWriter::WriteDatabaseToDisk(const ps::RelicItemsDatabase& 
     {
         writeString(item.url_name, fstream);
         writeString(item.name, fstream);
+        writeString(item.cleanName, fstream);
     }
 }
 

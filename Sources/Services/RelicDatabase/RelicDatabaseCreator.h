@@ -4,6 +4,7 @@
 #include <Dto/RelicItemsDatabase.h>
 #include "RelicDatabaseJsonParser.h"
 #include <Services/WarframeMarketApi.h>
+#include <Services/RelicDatabase/RelicItemNameCleaner.h>
 #include "RelicDatabasePrimeItemsFilter.h"
 
 namespace ps
@@ -17,6 +18,7 @@ namespace ps
         WarframeMarketApi _api;
         RelicDatabaseJsonParser _parser;
         RelicDatabasePrimeItemsFilter _filter;
+        RelicItemNameCleaner _cleaner;
     };
 }
 

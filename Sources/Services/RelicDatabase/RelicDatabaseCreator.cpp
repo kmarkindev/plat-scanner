@@ -11,5 +11,9 @@ ps::RelicItemsDatabase ps::RelicDatabaseCreator::CreateItemsDatabaseUsingWfApi()
     std::string apiResponse = _api.FetchAllTradeableItems();
     auto db = _parser.ParseFromString(apiResponse);
     _filter.FilterDatabase(db);
+    for(auto& item : db.items)
+    {
+        item.cleanName = _cleaner.ClearItemName(item.name);
+    }
     return db;
 }

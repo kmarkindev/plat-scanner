@@ -95,7 +95,10 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
     for(const auto& item : result.items)
     {
         auto searchResult = _relicSearcher.SearchForBestMatch(item.scannedText);
-        wxMessageBox(wxString::FromUTF8(searchResult.name));
+        if(searchResult.first)
+            wxMessageBox(wxString::FromUTF8(searchResult.second.name));
+        else
+            wxMessageBox("Nope...");
     }
 
     //TODO: find items ids, fetch prices, show them in ui.
