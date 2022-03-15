@@ -14,7 +14,7 @@ std::pair<bool, ps::RelicItem> ps::RelicDatabaseSearcher::SearchForBestMatch(std
 
     for(const auto& item : _db.items)
     {
-        auto ratio = rapidfuzz::fuzz::partial_ratio(itemName, item.cleanName);
+        auto ratio = 0.0; //rapidfuzz::fuzz::partial_ratio(itemName, item.cleanName);
 
         if(ratio > 70.0)
             possibleResults.push_back(&item);
@@ -27,7 +27,7 @@ std::pair<bool, ps::RelicItem> ps::RelicDatabaseSearcher::SearchForBestMatch(std
     const RelicItem* bestResult = nullptr;
     for(const auto& item : possibleResults)
     {
-        auto ratio = rapidfuzz::fuzz::token_sort_ratio(itemName, item->cleanName);
+        auto ratio = 0.0; //rapidfuzz::fuzz::token_sort_ratio(itemName, item->cleanName);
 
         if(ratio > bestRatio)
         {

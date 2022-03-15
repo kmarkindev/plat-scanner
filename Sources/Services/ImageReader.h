@@ -2,7 +2,7 @@
 
 #include <Dto/Image.h>
 #include <string_view>
-#include <stb/stb_image.h>
+#include <stb_image.h>
 #include <stdexcept>
 
 namespace ps

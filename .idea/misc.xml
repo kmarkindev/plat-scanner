@@ -10,6 +10,7 @@
       <file path="$PROJECT_DIR$/3rdParty/stb" />
       <file path="$PROJECT_DIR$/3rdParty/tesseract" />
       <file path="$PROJECT_DIR$/3rdParty/wxWidgets" />
+      <file path="$PROJECT_DIR$/vcpkg_installed" />
     </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/build" />

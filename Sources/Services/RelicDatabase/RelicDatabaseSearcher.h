@@ -2,7 +2,6 @@
 
 #include <Dto/RelicItemsDatabase.h>
 #include <string>
-#include <rapidfuzz/fuzz.hpp>
 #include "RelicItemNameCleaner.h"
 
 namespace ps

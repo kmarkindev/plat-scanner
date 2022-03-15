@@ -2,7 +2,7 @@
 
 #include <Dto/Image.h>
 #include <string_view>
-#include <stb/stb_image_write.h>
+#include <stb_image_write.h>
 
 namespace ps
 {
