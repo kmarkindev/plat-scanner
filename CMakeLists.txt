@@ -22,8 +22,8 @@ endif()
 add_subdirectory(Sources)
 
 find_package(wxWidgets 3.1.5 COMPONENTS core base REQUIRED)
-find_package(nlohmann_json 3.10.4 CONFIG REQUIRED)
-find_package(Tesseract 4.1.1 CONFIG REQUIRED)
+find_package(nlohmann_json 3.10.5 CONFIG REQUIRED)
+find_package(Tesseract 5.1.0 CONFIG REQUIRED)
 find_package(glm 0.9.9.8 CONFIG REQUIRED)
 find_package(ICU 69.1 REQUIRED COMPONENTS uc)
 find_path(STB_INCLUDE_DIRS "stb.h")
@@ -42,11 +42,6 @@ target_include_directories(PlatScanner PUBLIC
 	${GLM_INCLUDE_DIRS}
 	${STB_INCLUDE_DIRS}
 )
-
-# tesseract generates version.h header
-# we need to include it
-get_target_property(TESSERACT_BINARY_DIR libtesseract BINARY_DIR)
-target_include_directories(PlatScanner PUBLIC "${TESSERACT_BINARY_DIR}/include")
 
 # Copy Data folder to build location
 add_custom_command(TARGET PlatScanner POST_BUILD
