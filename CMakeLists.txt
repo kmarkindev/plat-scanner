@@ -23,8 +23,8 @@ add_subdirectory(Sources)
 
 find_package(wxWidgets 3.1.5 COMPONENTS core base REQUIRED)
 find_package(nlohmann_json 3.10.5 CONFIG REQUIRED)
-find_package(Tesseract 5.1.0 CONFIG REQUIRED)
-find_package(glm 0.9.9.8 CONFIG REQUIRED)
+find_package(Tesseract 4.1.1 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED) #0.9.9.8
 find_package(ICU 69.1 REQUIRED COMPONENTS uc)
 find_path(STB_INCLUDE_DIRS "stb.h")
 
@@ -34,8 +34,6 @@ target_link_libraries(PlatScanner PUBLIC
 	libtesseract
 	glm::glm
 	ICU::uc
-	wx::core
-	wx::base
 )
 target_include_directories(PlatScanner PUBLIC
 	${wxWidgets_INCLUDE_DIRS}
