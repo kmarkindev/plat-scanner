@@ -21,11 +21,15 @@ endif()
 
 add_subdirectory(Sources)
 
-find_package(wxWidgets 3.1.5 COMPONENTS core base REQUIRED)
-find_package(nlohmann_json 3.10.5 CONFIG REQUIRED)
-find_package(Tesseract 4.1.1 CONFIG REQUIRED)
+# wxWidgets doesn't know how to use CMAKE_PREFIX_PATH, so we need to tell it how
+set(wxWidgets_ROOT_DIR ${CMAKE_PREFIX_PATH})
+set(wxWidgets_LIB_DIR ${CMAKE_PREFIX_PATH}/lib)
+
+find_package(ICU 70.1 REQUIRED COMPONENTS uc)
+find_package(wxWidgets 3.1 COMPONENTS core base REQUIRED)
+find_package(nlohmann_json 3.10 CONFIG REQUIRED)
+find_package(Tesseract 5.1 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED) #0.9.9.8
-find_package(ICU 69.1 REQUIRED COMPONENTS uc)
 find_path(STB_INCLUDE_DIRS "stb.h")
 
 target_link_libraries(PlatScanner PUBLIC
@@ -41,7 +45,7 @@ target_include_directories(PlatScanner PUBLIC
 	${STB_INCLUDE_DIRS}
 )
 
-# Copy Data folder to build location
+# Copy Data folder to build location1
 add_custom_command(TARGET PlatScanner POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
 	${CMAKE_SOURCE_DIR}/Data/ $<TARGET_FILE_DIR:PlatScanner>/Data/)
