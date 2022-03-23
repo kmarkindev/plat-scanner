@@ -11,7 +11,7 @@ namespace ps
         RelicItemsDatabase();
         explicit RelicItemsDatabase(std::vector<RelicItem> items);
         std::vector<RelicItem>& GetItems();
-        const std::vector<RelicItem>& GetItems() const;
+        [[nodiscard]] const std::vector<RelicItem>& GetItems() const;
 
     private:
         std::vector<RelicItem> _items;
