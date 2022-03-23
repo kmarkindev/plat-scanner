@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <Dto/RelicItemsDatabase.h>
+#include <Models/RelicItemsDatabase.h>
 #include "RelicDatabaseJsonParser.h"
 #include <Services/WarframeMarketApi.h>
 #include <Services/RelicDatabase/RelicItemNameCleaner.h>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <Dto/Image.h>
+#include <Models/Image.h>
 #include <tesseract/baseapi.h>
 
 namespace ps
@@ -9,7 +9,7 @@ namespace ps
     class ImageScanner
     {
     public:
-        ImageScanner(std::string lang);
+        explicit ImageScanner(std::string lang);
         ~ImageScanner();
         [[nodiscard]] std::string Scan(const Image& image) const;
     private:

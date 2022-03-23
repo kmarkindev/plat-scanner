@@ -20,20 +20,24 @@ namespace ps
 
         void Process(Image& image) const override
         {
-            std::vector<unsigned char> newBitmap(image.width * image.height * image.channels);
+            int w = image.GetWidth();
+            int h = image.GetHeight();
+            int c = image.GetChannels();
+
+            std::vector<unsigned char> newBitmap(w * h * c);
 
             // Iterate through each pixel
-            for(size_t yPixel = 0; yPixel < image.height; ++yPixel)
+            for(size_t yPixel = 0; yPixel < h; ++yPixel)
             {
-                for(size_t xPixel = 0; xPixel < image.width; ++xPixel)
+                for(size_t xPixel = 0; xPixel < w; ++xPixel)
                 {
-                    size_t centerPixelIndex = yPixel * image.width + xPixel;
+                    size_t centerPixelIndex = yPixel * w + xPixel;
 
                     size_t topLeftPixelX = xPixel - _matrixCenter.first;
                     size_t topLeftPixelY = yPixel - _matrixCenter.second;
 
                     // Calculate kernel for each channel of the pixel
-                    for(size_t channel = 0; channel < image.channels; ++channel)
+                    for(size_t channel = 0; channel < c; ++channel)
                     {
                         float common = 0;
                         for(LenT i = 0; i < _rowsCount; ++i)
@@ -44,27 +48,27 @@ namespace ps
                                 size_t currentPixelY = topLeftPixelY + j;
 
                                 // All out of bounds pixels are equal to 0
-                                if(currentPixelX < 0 || currentPixelX > image.width - 1)
+                                if(currentPixelX < 0 || currentPixelX > w - 1)
                                     continue;
-                                if(currentPixelY < 0 || currentPixelY > image.height - 1)
+                                if(currentPixelY < 0 || currentPixelY > h - 1)
                                     continue;
 
                                 size_t currentPixelIndex = GetPixelIndex(currentPixelX,
-                                    currentPixelY, image.width);
-                                size_t currentCharIndex = currentPixelIndex * image.channels + channel;
+                                    currentPixelY, w);
+                                size_t currentCharIndex = currentPixelIndex * c + channel;
 
-                                common += static_cast<float>(image.bitmap[currentCharIndex]) * _kernel[j][i];
+                                common += static_cast<float>(image.GetBitmapRef()[currentCharIndex]) * _kernel[j][i];
                             }
                         }
 
-                        size_t centerCharIndex = centerPixelIndex * image.channels + channel;
+                        size_t centerCharIndex = centerPixelIndex * c + channel;
                         newBitmap[centerCharIndex] = clip(common);
                     }
 
                 }
             }
 
-            image.bitmap = newBitmap;
+            image.SetImage(w, h, c, std::move(newBitmap));
         }
 
     private:

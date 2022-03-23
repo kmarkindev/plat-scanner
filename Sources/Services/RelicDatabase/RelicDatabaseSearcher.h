@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Dto/RelicItemsDatabase.h>
+#include <Models/RelicItemsDatabase.h>
 #include <string>
 #include "RelicItemNameCleaner.h"
 

@@ -10,9 +10,9 @@ std::pair<bool, ps::RelicItem> ps::RelicDatabaseSearcher::SearchForBestMatch(std
 {
     std::vector<const RelicItem*> possibleResults;
 
-    itemName = _nameCleaner.ClearItemName(itemName);
+    //itemName = _nameCleaner.ClearItemName(itemName);
 
-    for(const auto& item : _db.items)
+    for(const auto& item : _db.GetItems())
     {
         auto ratio = 0.0; //rapidfuzz::fuzz::partial_ratio(itemName, item.cleanName);
 

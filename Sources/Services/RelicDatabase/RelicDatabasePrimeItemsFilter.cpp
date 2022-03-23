@@ -2,11 +2,12 @@
 
 void ps::RelicDatabasePrimeItemsFilter::FilterDatabase(ps::RelicItemsDatabase& db)
 {
-    auto newEnd = std::remove_if(db.items.begin(), db.items.end(), [](const RelicItem& item) -> bool
+    auto newEnd = std::remove_if(db.GetItems().begin(), db.GetItems().end(), [](const RelicItem& item) -> bool
     {
-        return item.url_name.find("prime") == std::string::npos
-            || item.url_name.find("primed") != std::string::npos;
+        auto urlName = item.GetUrlName();
+        return urlName.find("prime") == std::string::npos
+            || urlName.find("primed") != std::string::npos;
     });
 
-    db.items.erase(newEnd, db.items.end());
+    db.GetItems().erase(newEnd, db.GetItems().end());
 }

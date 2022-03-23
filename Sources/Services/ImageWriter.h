@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Dto/Image.h>
+#include <Models/Image.h>
 #include <string_view>
 #include <stb_image_write.h>
 

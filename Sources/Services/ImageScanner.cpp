@@ -12,7 +12,7 @@ ps::ImageScanner::~ImageScanner()
 
 std::string ps::ImageScanner::Scan(const ps::Image& image) const
 {
-    int bytesPerRow = image.width * image.channels; //Each component is 8 bit (1 byte)
-    _api.SetImage(image.bitmap.data(), image.width, image.height, image.channels, bytesPerRow);
+    int bytesPerRow = image.GetWidth() * image.GetChannels(); //Each component is 8 bit (1 byte)
+    _api.SetImage(image.GetRawData(), image.GetWidth(), image.GetHeight(), image.GetChannels(), bytesPerRow);
     return _api.GetUTF8Text();
 }

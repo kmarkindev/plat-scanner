@@ -4,19 +4,13 @@ ps::RelicItemsDatabase ps::RelicDatabaseJsonParser::ParseFromString(std::string 
 {
     auto json = nlohmann::json::parse(jsonString)["payload"]["items"];
 
-    RelicItemsDatabase db = {
-        std::vector<RelicItem>(json.size())
-    };
+    std::vector<RelicItem> items(json.size());
 
-    for(size_t i = 0; i < db.items.size(); ++i)
+    for(size_t i = 0; i < items.size(); ++i)
     {
         auto itemJson = json[i];
-        db.items[i] = {
-            itemJson["url_name"],
-            itemJson["item_name"],
-            {}
-        };
+        items[i] = RelicItem(itemJson["item_name"], itemJson["url_name"]);
     }
 
-    return db;
+    return RelicItemsDatabase(std::move(items));
 }

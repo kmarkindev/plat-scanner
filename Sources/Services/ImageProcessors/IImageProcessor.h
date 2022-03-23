@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Dto/Image.h>
+#include <Models/Image.h>
 
 namespace ps
 {

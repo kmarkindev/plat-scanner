@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Image.h"
+#include <Models/Image.h>
 #include <vector>
 #include <string>
 

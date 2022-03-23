@@ -2,10 +2,11 @@
 
 void ps::ScanResultPanel::SetResult(ps::Image image, wxString text)
 {
-    if(image.channels != 3)
+    if(image.GetChannels() != 3)
         throw std::invalid_argument("Cannot show image without RGB channels");
 
-    wxImage wximg(image.width, image.height, image.bitmap.data(), true);
+    auto bitmap = image.GetBitmap();
+    wxImage wximg(image.GetWidth(), image.GetHeight(), bitmap.data(), true);
 
     text.Replace('\n', " ");
 

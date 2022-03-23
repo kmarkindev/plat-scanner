@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string>
-#include <Dto/RelicItemsDatabase.h>
+#include <vector>
+#include <Models/RelicItemsDatabase.h>
 #include <nlohmann/json.hpp>
 
 namespace ps

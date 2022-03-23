@@ -3,7 +3,7 @@
 #include <wx/wx.h>
 #include <wx/stdpaths.h>
 #include <wx/filename.h>
-#include <Dto/Image.h>
+#include <Models/Image.h>
 
 namespace ps
 {

@@ -35,10 +35,6 @@ ps::Image ps::ScreenshotTaker::TakeScreenRect(glm::ivec4 rect) const
     auto height = image.GetHeight();
     auto channels = 3; // wxImage always has 3 channels (RBG) at this point
 
-    return {
-        width,
-        height,
-        channels,
-        std::vector<unsigned char>(image.GetData(), image.GetData() + width * height * channels)
-    };
+    return ps::Image(width, height, channels,
+        std::vector<unsigned char>(image.GetData(), image.GetData() + width * height * channels));
 }

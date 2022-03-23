@@ -96,7 +96,7 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
     {
         auto searchResult = _relicSearcher.SearchForBestMatch(item.scannedText);
         if(searchResult.first)
-            wxMessageBox(wxString::FromUTF8(searchResult.second.name));
+            wxMessageBox(wxString::FromUTF8(searchResult.second.GetName()));
         else
             wxMessageBox("Nope...");
     }

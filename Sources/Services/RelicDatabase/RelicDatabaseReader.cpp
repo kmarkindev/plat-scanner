@@ -10,18 +10,16 @@ ps::RelicItemsDatabase ps::RelicDatabaseReader::ReadDatabaseFromDisk(const std::
     int size = 0;
     fstream.read(reinterpret_cast<char*>(&size), sizeof(size));
 
-    RelicItemsDatabase result = {
-        std::vector<RelicItem>(size)
-    };
+    std::vector<RelicItem> items(size);
 
-    for(auto& item : result.items)
+    for(auto& item : items)
     {
-        item.url_name = ReadString(fstream);
-        item.name = ReadString(fstream);
-        item.cleanName = ReadString(fstream);
+        auto urlName = ReadString(fstream);
+        auto name = ReadString(fstream);
+        item.SetItem(name, urlName);
     }
 
-    return result;
+    return RelicItemsDatabase(std::move(items));
 }
 
 std::string ps::RelicDatabaseReader::ReadString(std::ifstream& fs)

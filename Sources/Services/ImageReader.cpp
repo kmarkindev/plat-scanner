@@ -2,14 +2,15 @@
 
 ps::Image ps::ImageReader::ReadFromDisk(std::string_view filename) const
 {
-    Image image;
-
-    unsigned char* buffer = stbi_load("cropped4.png", &image.width, &image.height, &image.channels, 0);
+    int width;
+    int height;
+    int channels;
+    unsigned char* buffer = stbi_load("cropped4.png", &width, &height, &channels, 0);
 
     if(!buffer)
         throw std::runtime_error("Can't load image from disk");
 
-    image.bitmap = std::vector<unsigned char>(buffer, buffer + image.width * image.height * image.channels);
+    Image image(width, height, channels, std::vector<unsigned char>(buffer, buffer + width * height * channels));
 
     stbi_image_free(buffer);
     return image;

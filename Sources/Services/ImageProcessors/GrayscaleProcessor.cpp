@@ -2,28 +2,31 @@
 
 void ps::GrayscaleProcessor::Process(ps::Image& image) const
 {
-    if(image.channels != 3)
+    if(image.GetChannels() != 3)
         throw std::runtime_error("Cannot grayscale non RGB image");
 
-    std::vector<unsigned char> newBitmap(image.width * image.height);
+    const int w = image.GetWidth();
+    const int h = image.GetHeight();
+    const int c = image.GetChannels();
 
-    for(int i = 0; i < image.height; ++i)
+    std::vector<unsigned char> newBitmap(w * h);
+
+    for(int i = 0; i < h; ++i)
     {
-        for(int j = 0; j < image.width; ++j)
+        for(int j = 0; j < w; ++j)
         {
-            int x = i * image.width * image.channels;
-            int y = j * image.channels;
+            int x = i * w * c;
+            int y = j * c;
             int index = x + y;
 
-            double result = image.bitmap[index] * 0.2989
-                + image.bitmap[index + 1] * 0.5870
-                + image.bitmap[index + 2] * 0.1140;
+            double result = image.GetBitmapRef()[index] * 0.2989
+                + image.GetBitmapRef()[index + 1] * 0.5870
+                + image.GetBitmapRef()[index + 2] * 0.1140;
 
             //result is always in range from 0 to 255
-            newBitmap[(i * image.width) + j] = static_cast<unsigned char>(result);
+            newBitmap[(i * w) + j] = static_cast<unsigned char>(result);
         }
     }
 
-    image.channels = 1;
-    image.bitmap = newBitmap;
+    image.SetImage(w, h, 1, std::move(newBitmap));
 }

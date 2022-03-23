@@ -3,8 +3,9 @@
 ps::RelicScanResult ps::RelicScanner::ScanRelics(int itemsCount, std::pair<int, int> resolution, std::pair<int, int> aspectRatio) const
 {
     RelicScanResult result = {
-        std::vector<RelicScanResult::ItemScanData>(itemsCount)
+        std::vector<RelicScanResult::ItemScanData>()
     };
+    result.items.reserve(itemsCount);
 
     for(int i = 0; i < itemsCount; ++i)
     {
@@ -23,14 +24,14 @@ ps::RelicScanResult ps::RelicScanner::ScanRelics(int itemsCount, std::pair<int, 
 
         auto text = _imageScanner.Scan(image);
 
-        result.items[i] = {scannedImage, image, text};
+        result.items.push_back({scannedImage, image, text});
     }
 
     return result;
 }
 
 ps::RelicScanner::RelicScanner(std::string lang)
-    : _sharpenProcessor(1.25), _upscaleProcessor(2.5), _imageScanner(lang)
+    : _sharpenProcessor(1.25), _upscaleProcessor(2.5), _imageScanner(std::move(lang))
 {
 
 }

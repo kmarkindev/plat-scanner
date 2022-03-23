@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <utility>
+#include <vector>
 #include <Dto/RelicScanResult.h>
 #include <Services/ImageScanner.h>
 #include <Services/ScreenshotTaker.h>
