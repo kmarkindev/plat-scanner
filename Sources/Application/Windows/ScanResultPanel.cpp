@@ -21,8 +21,8 @@ ps::ScanResultPanel::ScanResultPanel(wxWindow* parent)
     SetSize(wxSize(250, 150));
 
     wxFileName path(wxStandardPaths::Get().GetExecutablePath());
-    path.AppendDir("Data");
-    path.AppendDir("Media");
+    path.AppendDir("data");
+    path.AppendDir("media");
     path.SetFullName("noimage.png");
 
     _noImageBitmap->LoadFile(path.GetFullPath(), wxBITMAP_TYPE_PNG);

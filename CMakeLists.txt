@@ -21,9 +21,7 @@ set_target_properties(PlatScanner PROPERTIES
 	CXX_STANDARD 20
 	CXX_STANDARD_REQUIRED NO
 	CXX_EXTENSIONS NO
-	CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-	CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-	CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+	CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plat-scanner-bin"
 )
 
 add_subdirectory(Sources)
@@ -33,4 +31,4 @@ target_link_libraries(PlatScanner PUBLIC ${CONAN_LIBS})
 # Copy Data folder to build location
 add_custom_command(TARGET PlatScanner POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
-	${CMAKE_SOURCE_DIR}/Data/ $<TARGET_FILE_DIR:PlatScanner>/Data/)
+	${CMAKE_SOURCE_DIR}/Data/ $<TARGET_FILE_DIR:PlatScanner>/data/)

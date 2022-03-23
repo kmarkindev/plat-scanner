@@ -112,8 +112,8 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
         int i = 0;
 
         wxFileName path(wxStandardPaths::Get().GetExecutablePath());
-        path.AppendDir("Tmp");
-        path.AppendDir("Debug");
+        path.AppendDir("tmp");
+        path.AppendDir("debug");
 
         for(auto [scannedImage, processedImage, scannedText] : result.items)
         {
@@ -124,10 +124,10 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
             currentPath.AppendDir(id);
             currentPath.Mkdir(wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL);
 
-            currentPath.SetFullName("scannedImage.png");
+            currentPath.SetFullName("scanned_image.png");
             auto p = currentPath.GetFullPath().ToStdString();
             imgWriter.WriteToDisk(currentPath.GetFullPath().ToStdString(), scannedImage);
-            currentPath.SetFullName("processedImage.png");
+            currentPath.SetFullName("processed_image.png");
             imgWriter.WriteToDisk(currentPath.GetFullPath().ToStdString(), processedImage);
         }
     }

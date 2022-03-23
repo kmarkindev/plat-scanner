@@ -2,7 +2,7 @@
 
 ps::ImageScanner::ImageScanner(std::string lang)
 {
-    _api.Init("Data/Tess/", lang.data());
+    _api.Init("data/tess/", lang.data());
 }
 
 ps::ImageScanner::~ImageScanner()

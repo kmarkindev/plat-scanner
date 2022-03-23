@@ -1,17 +1,17 @@
 #include "Application.h"
 
-bool ps::Application::OnInit()
+bool ps::Application::OnInit() try
 {
     wxImage::AddHandler(new wxPNGHandler());
 
-    std::filesystem::path pathToDb("Tmp/Db.rdb");
+    std::filesystem::path pathToDb("tmp/Db.rdb");
 
     if(!std::filesystem::exists(pathToDb))
     {
         RelicDatabaseCreator creator("ru", "pc");
         RelicDatabaseWriter writer;
         auto db = creator.CreateItemsDatabaseUsingWfApi();
-        writer.WriteDatabaseToDisk(db, "Tmp/Db.rdb");
+        writer.WriteDatabaseToDisk(db, "tmp/db.rdb");
 
         auto window = new MainWindow(db);
         window->Show();
@@ -19,11 +19,21 @@ bool ps::Application::OnInit()
     else
     {
         RelicDatabaseReader reader;
-        auto db = reader.ReadDatabaseFromDisk("Tmp/Db.rdb");
+        auto db = reader.ReadDatabaseFromDisk("tmp/db.rdb");
 
         auto window = new MainWindow(db);
         window->Show();
     }
 
 	return true;
+}
+catch(std::exception& ex)
+{
+    wxMessageBox(wxString::FromUTF8(ex.what()), "Exception", wxICON_ERROR);
+    return false;
+}
+catch(...)
+{
+    wxMessageBox(wxString::FromUTF8("Unhandled exception of non std::exception type in Application::OnInit"), "Exception", wxICON_ERROR);
+    return false;
 }

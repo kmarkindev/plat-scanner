@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
-  <component name="CidrRootsConfiguration">
-    <libraryRoots>
-      <file path="$PROJECT_DIR$/3rdParty/fuzzywuzzy" />
-      <file path="$PROJECT_DIR$/3rdParty/glm" />
-      <file path="$PROJECT_DIR$/3rdParty/json" />
-      <file path="$PROJECT_DIR$/3rdParty/rapidfuzz-cpp" />
-      <file path="$PROJECT_DIR$/3rdParty/stb" />
-      <file path="$PROJECT_DIR$/3rdParty/tesseract" />
-      <file path="$PROJECT_DIR$/3rdParty/wxWidgets" />
-      <file path="$PROJECT_DIR$/vcpkg_installed" />
-    </libraryRoots>
-    <excludeRoots>
-      <file path="$PROJECT_DIR$/build" />
-    </excludeRoots>
-  </component>
   <component name="DiscordProjectSettings">
     <option name="show" value="ASK" />
     <option name="description" value="" />

@@ -16,3 +16,9 @@ After that, you are ready to build plat-scanner following these steps:
 - Run <code>conan install ..</code> or <code>conan install .. --build=missing</code> if there are MissingBinary errors.
 - Run cmake configuration using <code>cmake ..</code>
 - Finally, build everything in one piece by running <code>cmake --build .</code>
+
+*PS: make sure you are building plat-scanner using same CMAKE_BUILD_TYPE as you
+are using for conan packages. Otherwise, you will have link errors. You can config it by 
+creating new conan profile.*
+
+*PPS: Recommended settings are Visual Studio 17 x86_64*

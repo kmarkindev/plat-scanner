@@ -10,7 +10,10 @@ std::string ps::WarframeMarketApi::FetchAllTradeableItems()
 {
     //TODO: replace it to http fetch
 
-    std::ifstream fs("Tmp/db.json");
+    std::ifstream fs("tmp/db.json");
+
+    if(!fs.is_open())
+        throw std::runtime_error("Cannot open tmp/db.json");
 
     fs.seekg(0, std::ios::end);
     size_t size = fs.tellg();

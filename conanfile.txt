@@ -1,4 +1,5 @@
 [requires]
+tesseract/5.1.0
 nlohmann_json/3.10.5
 stb/cci.20210910
 glm/0.9.9.8
