@@ -4,25 +4,19 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 	message(FATAL_ERROR "Cmake generation in source dir is not allowed. Make an out of source build instead.")
 endif()
 
-set(RUN_SUPERBUILD ON)
-if(RUN_SUPERBUILD)
-	include(cmake/superbuild.cmake)
-	return()
-endif()
-
 project(plat-scanner LANGUAGES CXX)
 
-include(cmake/externals_options.cmake)
-set(CMAKE_PREFIX_PATH "${EXTERNALS_INSTALL_PREFIX}")
+# Setup conan
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
+# Setup plat-scanner target
 if(WIN32)
+	# wxWidgets wants to use WinMain entry point when running on Windows
 	add_executable(PlatScanner WIN32)
 else()
-	add_executable(PlatScanner superbuild/dummy.cpp)
+	add_executable(PlatScanner)
 endif()
-
-#target_link_libraries(PlatScanner PUBLIC externals)
-#add_dependencies(PlatScanner externals)
 set_target_properties(PlatScanner PROPERTIES
 	CXX_STANDARD 20
 	CXX_STANDARD_REQUIRED NO
@@ -34,31 +28,7 @@ set_target_properties(PlatScanner PROPERTIES
 
 add_subdirectory(Sources)
 
-# wxWidgets doesn't know how to use CMAKE_PREFIX_PATH, so we need to tell it how
-set(wxWidgets_ROOT_DIR ${CMAKE_PREFIX_PATH})
-set(wxWidgets_LIB_DIR ${CMAKE_PREFIX_PATH}/lib)
-
-find_package(wxWidgets 3.1 COMPONENTS core base REQUIRED)
-#find_package(ICU 70.1 REQUIRED COMPONENTS uc)
-find_package(nlohmann_json 3.10 CONFIG REQUIRED)
-find_package(Tesseract 5.1 REQUIRED)
-find_path(GLM_INCLUDE_DIRS "glm/glm.hpp" REQUIRED)
-find_path(STB_INCLUDE_DIRS
-	NAMES "stb_image.h" "stb_image_write.h" "stb_image_resize.h"
-	REQUIRED
-)
-
-target_link_libraries(PlatScanner PUBLIC
-	${wxWidgets_LIBRARIES}
-	nlohmann_json::nlohmann_json
-	${Tesseract_LIBRARIES}
-)
-target_include_directories(PlatScanner PUBLIC
-	${wxWidgets_INCLUDE_DIRS}
-	${Tesseract_INCLUDE_DIRS}
-	${GLM_INCLUDE_DIRS}
-	${STB_INCLUDE_DIRS}
-)
+target_link_libraries(PlatScanner PUBLIC ${CONAN_LIBS})
 
 # Copy Data folder to build location
 add_custom_command(TARGET PlatScanner POST_BUILD

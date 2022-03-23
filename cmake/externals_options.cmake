@@ -1,1 +1,0 @@
-set(EXTERNALS_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed_externals")
