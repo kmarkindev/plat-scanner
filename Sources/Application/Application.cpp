@@ -4,7 +4,7 @@ bool ps::Application::OnInit() try
 {
     wxImage::AddHandler(new wxPNGHandler());
 
-    std::filesystem::path pathToDb("tmp/Db.rdb");
+    std::filesystem::path pathToDb("tmp/db.rdb");
 
     if(!std::filesystem::exists(pathToDb))
     {
@@ -29,11 +29,12 @@ bool ps::Application::OnInit() try
 }
 catch(std::exception& ex)
 {
-    wxMessageBox(wxString::FromUTF8(ex.what()), "Exception", wxICON_ERROR);
+    wxMessageBox(wxString::FromUTF8(ex.what()), "Init Exception", wxICON_ERROR);
     return false;
 }
 catch(...)
 {
-    wxMessageBox(wxString::FromUTF8("Unhandled exception of non std::exception type in Application::OnInit"), "Exception", wxICON_ERROR);
+    wxMessageBox(wxString::FromUTF8("Unhandled exception of non std::exception type in Application::OnInit"),
+        "Init Exception", wxICON_ERROR);
     return false;
 }
