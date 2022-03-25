@@ -15,7 +15,7 @@ if(WIN32)
 	# wxWidgets wants to use WinMain entry point when running on Windows
 	add_executable(PlatScanner WIN32)
 else()
-	add_executable(PlatScanner)
+	add_executable(PlatScanner Sources/Services/HttpClient.cpp Sources/Services/HttpClient.h Sources/Models/HttpResponse.cpp Sources/Models/HttpResponse.h Sources/Models/HttpRequest.cpp Sources/Models/HttpRequest.h)
 endif()
 set_target_properties(PlatScanner PROPERTIES
 	CXX_STANDARD 20

@@ -5,4 +5,8 @@ target_sources(PlatScanner PUBLIC
 	RelicItem.cpp
 	RelicItemsDatabase.h
 	RelicItemsDatabase.cpp
+	HttpResponse.cpp
+	HttpResponse.h
+	HttpRequest.cpp
+	HttpRequest.h
 )

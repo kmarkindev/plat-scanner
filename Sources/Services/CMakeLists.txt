@@ -16,4 +16,6 @@ target_sources(PlatScanner PUBLIC
 	RelicScanner.h
 	WarframeMarketApi.cpp
 	WarframeMarketApi.h
+	HttpClient.cpp
+	HttpClient.h
 )
