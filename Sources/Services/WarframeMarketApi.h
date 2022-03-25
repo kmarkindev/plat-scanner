@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <wx/protocol/http.h>
 
 namespace ps
 {
