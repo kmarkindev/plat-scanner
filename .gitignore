@@ -1,6 +1,8 @@
-/out/
-/cmake-build-debug/
-/cmake-build-release/
-/build/
-/vcpkg_installed/
-/.idea/
+/*
+!/Data
+!/Sources
+!.gitattributes
+!.gitignore
+!CMakeLists.txt
+!conanfile.txt
+!README.md
