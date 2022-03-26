@@ -9,4 +9,8 @@ target_sources(PlatScanner PUBLIC
 	HttpResponse.h
 	HttpRequest.cpp
 	HttpRequest.h
+	HttpHeader.cpp
+	HttpHeader.h
+	HttpHeadersCollection.h
+	HttpHeadersCollection.cpp
 )
