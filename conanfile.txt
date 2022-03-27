@@ -8,6 +8,7 @@ libtiff/4.3.0
 cpp-httplib/0.10.4
 openssl/3.0.2
 cryptopp/8.6.0
+rapidfuzz/cci.20210513
 
 [options]
 stb:with_deprecated=False
