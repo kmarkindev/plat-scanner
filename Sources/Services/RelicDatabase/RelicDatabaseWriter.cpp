@@ -11,7 +11,7 @@ void ps::RelicDatabaseWriter::WriteDatabaseToDisk(const ps::RelicItemsDatabase& 
     std::ofstream fstream(filename, std::ios::binary | std::ios::out);
 
     if(!fstream.is_open())
-        throw std::runtime_error("Cannot open stream using given filename");
+        throw std::runtime_error("Can't open fstream using given filename");
 
     auto size = db.GetItems().size();
     fstream.write(reinterpret_cast<char*>(&size), sizeof(size));

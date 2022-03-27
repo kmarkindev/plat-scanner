@@ -20,7 +20,7 @@ void HttpResponse::SetBody(std::string_view body)
     _body = body;
 }
 
-HttpHeadersCollection HttpResponse::GetHeaders() const
+const HttpHeadersCollection& HttpResponse::GetHeaders() const
 {
     return _headers;
 }
@@ -34,4 +34,9 @@ HttpResponse::HttpResponse(int code)
     : _code(code)
 {
 
+}
+
+HttpHeadersCollection& HttpResponse::GetHeaders()
+{
+    return _headers;
 }
