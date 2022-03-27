@@ -14,8 +14,8 @@ ps::RelicItemsDatabase ps::RelicDatabaseReader::ReadDatabaseFromDisk(const std::
 
     for(auto& item : items)
     {
-        auto urlName = ReadString(fstream);
         auto name = ReadString(fstream);
+        auto urlName = ReadString(fstream);
         item.SetItem(name, urlName);
     }
 

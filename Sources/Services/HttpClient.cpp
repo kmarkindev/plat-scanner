@@ -3,6 +3,8 @@
 HttpResponse HttpClient::Send(const HttpRequest& request)
 {
     httplib::Client client(request.GetHostname());
+    client.set_follow_location(true);
+    client.enable_server_certificate_verification(false);
 
     httplib::Request libRequest;
 
@@ -14,12 +16,14 @@ HttpResponse HttpClient::Send(const HttpRequest& request)
 
     auto libResponse = client.send(libRequest);
 
+    auto error = libResponse.error();
+    if(error != httplib::Error::Success)
+        throw std::runtime_error("Can't send request. Error: " + httplib::to_string(error));
+
     HttpResponse response(libResponse->status);
     response.SetBody(libResponse->body);
-    HttpHeadersCollection headers;
     for(const auto& libHeader : libResponse->headers)
-        headers.SetHeader(HttpHeader(libHeader.first, libHeader.second));
-    response.SetHeaders(headers);
+        response.GetHeaders().SetHeader(HttpHeader(libHeader.first, libHeader.second));
 
     return response;
 }

@@ -18,7 +18,8 @@ public:
     void SetCode(int code);
     [[nodiscard]] std::string GetBody() const;
     void SetBody(std::string_view body);
-    [[nodiscard]] HttpHeadersCollection GetHeaders() const;
+    [[nodiscard]] const HttpHeadersCollection& GetHeaders() const;
+    [[nodiscard]] HttpHeadersCollection& GetHeaders();
     void SetHeaders(HttpHeadersCollection headers);
 
 private:

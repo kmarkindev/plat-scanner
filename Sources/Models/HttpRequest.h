@@ -23,7 +23,8 @@ public:
     [[nodiscard]] std::string GetPath() const;
     [[nodiscard]] std::string GetMethod() const;
     void SetHeaders(HttpHeadersCollection headers);
-    [[nodiscard]] HttpHeadersCollection GetHeaders() const;
+    [[nodiscard]] const HttpHeadersCollection& GetHeaders() const;
+    [[nodiscard]] HttpHeadersCollection& GetHeaders();
     void SetBody(std::string_view body);
     [[nodiscard]] std::string GetBody() const;
 
@@ -33,4 +34,6 @@ private:
     std::string _method;
     HttpHeadersCollection _headers;
     std::string _body;
+
+    void CheckPath(std::string_view path) const;
 };

@@ -13,7 +13,7 @@ public:
     {
     public:
 
-        using iterator_category = std::bidirectional_iterator_tag;
+        using iterator_category = std::forward_iterator_tag;
         using difference_type   = std::ptrdiff_t;
         using value_type        = HttpHeader;
         using pointer           = value_type*;
@@ -36,6 +36,33 @@ public:
         internalPointer _ptr;
     };
 
+    struct ConstIterator
+    {
+    public:
+
+        using iterator_category = std::forward_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = const HttpHeader;
+        using pointer           = value_type*;
+        using reference         = value_type&;
+
+        using internalPointer = std::unordered_map<std::string, HttpHeader>::const_iterator;
+
+        ConstIterator(internalPointer ptr) : _ptr(std::move(ptr)) {}
+
+        reference operator*() const { return _ptr->second; }
+        pointer operator->() { return &_ptr->second; }
+
+        ConstIterator& operator++() { _ptr++; return *this; }
+        ConstIterator operator++(int) { ConstIterator tmp = *this; ++(*this); return tmp; }
+
+        friend bool operator== (const ConstIterator& a, const ConstIterator& b) { return a._ptr == b._ptr; };
+        friend bool operator!= (const ConstIterator& a, const ConstIterator& b) { return a._ptr != b._ptr; };
+
+    private:
+        internalPointer _ptr;
+    };
+
     HttpHeadersCollection() = default;
     HttpHeadersCollection(const HttpHeadersCollection& other) = default;
     HttpHeadersCollection(HttpHeadersCollection&&) noexcept = default;
@@ -45,12 +72,17 @@ public:
     void SetHeader(HttpHeader header);
     void ClearHeaders();
     void RemoveHeader(std::string_view name);
-    [[nodiscard]] HttpHeader GetHeader(std::string_view name) const;
+    [[nodiscard]] const HttpHeader& GetHeader(std::string_view name) const;
+    [[nodiscard]] HttpHeader& GetHeader(std::string_view name);
     [[nodiscard]] bool HasHeader(std::string_view name) const;
     size_t GetHeadersCount();
 
-    Iterator begin();
-    Iterator end();
+    [[nodiscard]] Iterator begin();
+    [[nodiscard]] Iterator end();
+    [[nodiscard]] ConstIterator begin() const;
+    [[nodiscard]] ConstIterator end() const;
+    [[nodiscard]] ConstIterator cbegin() const;
+    [[nodiscard]] ConstIterator cend() const;
 
 private:
     std::unordered_map<std::string, HttpHeader> _headers;

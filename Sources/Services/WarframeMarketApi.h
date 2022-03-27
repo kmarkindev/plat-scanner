@@ -1,9 +1,7 @@
 #pragma once
 
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <wx/protocol/http.h>
+#include <Services/HttpClient.h>
 
 namespace ps
 {
@@ -16,6 +14,8 @@ namespace ps
     private:
         std::string _lang;
         std::string _platform;
+        HttpClient _httpClient;
+        HttpRequest _httpRequest;
     };
 }
 
