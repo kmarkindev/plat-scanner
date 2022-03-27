@@ -1,43 +1,51 @@
 #include "RelicDatabaseSearcher.h"
 
-ps::RelicDatabaseSearcher::RelicDatabaseSearcher(const ps::RelicItemsDatabase& db)
-    : _db(db)
+#include <utility>
+#include <regex>
+
+ps::RelicDatabaseSearcher::RelicDatabaseSearcher(ps::RelicItemsDatabase  db)
+    : _db(std::move(db))
 {
 
 }
 
-std::pair<bool, ps::RelicItem> ps::RelicDatabaseSearcher::SearchForBestMatch(std::string itemName)
+std::pair<bool, ps::RelicItem> ps::RelicDatabaseSearcher::SearchForBestMatch(const std::string& itemName)
 {
-    std::vector<const RelicItem*> possibleResults;
+    auto u32name = toUtf32(itemName);
 
-    //itemName = _nameCleaner.ClearItemName(itemName);
+    double bestRatio = -1.0;
+    const RelicItem* bestItem = nullptr;
 
     for(const auto& item : _db.GetItems())
     {
-        auto ratio = 0.0; //rapidfuzz::fuzz::partial_ratio(itemName, item.cleanName);
+        auto u32dbName = toUtf32(item.GetName());
+        auto prefix = U"";
 
-        if(ratio > 70.0)
-            possibleResults.push_back(&item);
-    }
+        if(item.GetUrlName().find("_chassis") != std::string::npos)
+            prefix = U"Чертёж: ";
+        if(item.GetUrlName().find("_systems") != std::string::npos)
+            prefix = U"Чертёж: ";
+        if(item.GetUrlName().find("_neuroptics") != std::string::npos)
+            prefix = U"Чертёж: ";
 
-    if(possibleResults.empty())
-        return {false, {}};
+        auto ratio = rapidfuzz::fuzz::partial_ratio(prefix + u32dbName, u32name);
 
-    double bestRatio = -1.0;
-    const RelicItem* bestResult = nullptr;
-    for(const auto& item : possibleResults)
-    {
-        auto ratio = 0.0; //rapidfuzz::fuzz::token_sort_ratio(itemName, item->cleanName);
-
-        if(ratio > bestRatio)
+        if(ratio > 60.0 && ratio > bestRatio)
         {
+            bestItem = &item;
             bestRatio = ratio;
-            bestResult = item;
-
-            if(ratio > 99.0)
-                break;
         }
     }
 
-    return {true, *bestResult};
+    if(bestRatio < 0)
+        return {false, {}};
+
+    return {true, *bestItem};
+}
+
+std::u32string ps::RelicDatabaseSearcher::toUtf32(const std::string& s)
+{
+    //TODO: replace with smth that is not deprecated in cpp 20
+    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> conv;
+    return conv.from_bytes(s);
 }

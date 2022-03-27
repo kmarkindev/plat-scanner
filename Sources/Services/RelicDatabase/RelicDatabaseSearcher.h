@@ -2,18 +2,21 @@
 
 #include <Models/RelicItemsDatabase.h>
 #include <string>
-#include "RelicItemNameCleaner.h"
+#include <rapidfuzz/fuzz.hpp>
+#include <locale>
+#include <codecvt>
 
 namespace ps
 {
     class RelicDatabaseSearcher
     {
     public:
-        explicit RelicDatabaseSearcher(const RelicItemsDatabase& db);
-        std::pair<bool, ps::RelicItem> SearchForBestMatch(std::string itemName);
+        explicit RelicDatabaseSearcher(RelicItemsDatabase  db);
+        std::pair<bool, ps::RelicItem> SearchForBestMatch(const std::string& itemName);
     private:
         RelicItemsDatabase _db;
-        RelicItemNameCleaner _nameCleaner;
+
+        std::u32string toUtf32(const std::string &s);
     };
 }
 

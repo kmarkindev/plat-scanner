@@ -11,6 +11,4 @@ target_sources(PlatScanner PUBLIC
 	RelicDatabasePrimeItemsFilter.cpp
 	RelicDatabaseSearcher.cpp
 	RelicDatabaseSearcher.h
-	RelicItemNameCleaner.cpp
-	RelicItemNameCleaner.h
 )
