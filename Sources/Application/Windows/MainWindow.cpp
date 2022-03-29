@@ -75,9 +75,43 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
 {
     auto itemsCount = event.GetId();
 
-    //TODO: grab resolution and aspect ratio from settings
-    auto result = _relicScanner.ScanRelics(itemsCount, {1920, 1080}, {16, 9});
+    // Reset previous results
+    for(auto panel : _scanResultPanels)
+        panel->ResetResult();
 
+    // Scan dropped items from screen
+    // TODO: grab resolution and aspect ratio from settings
+    auto scanResult = _relicScanner.ScanRelics(itemsCount, {1920, 1080}, {16, 9});
+
+    // Set scanned image and name in UI
+    for(int i = 0; i < scanResult.items.size(); ++i)
+        _scanResultPanels[i]->SetResult(scanResult.items[i].scannedImage,
+            wxString::FromUTF8(scanResult.items[i].scannedText));
+
+    // Search for best matches in database
+    std::vector<std::pair<bool, SearchResult>> searchResults(itemsCount);
+    for(size_t i = 0; i < scanResult.items.size(); ++i)
+    {
+        auto result = _relicSearcher.SearchForBestMatch(scanResult.items[i].scannedText);
+        searchResults[i].first = result.first;
+        searchResults[i].second.item = result.second;
+    }
+
+    // Fetch prices from warframe.market
+    for(auto& result : searchResults)
+    {
+        if(!result.first)
+            continue;
+
+        auto ordersJson = _wmApi.FetchItemOrders(result.second.item.GetUrlName());
+        auto itemOrders = _ordersJsonParser.ParseFromString(ordersJson);
+        _ordersFilter.FilterOrders(itemOrders);
+        result.second.bestPrices = _bestPricesFinder.SearchBestPrices(itemOrders);
+    }
+
+    //Show results in UI
+
+    // Move window on top if required
     if(_optionsPanel->IsMoveOnTopEnabled())
     {
         Iconize(false);
@@ -86,27 +120,9 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
         Show(true);
     }
 
-    for(auto panel : _scanResultPanels)
-        panel->ResetResult();
-
-    for(int i = 0; i < result.items.size(); ++i)
-        _scanResultPanels[i]->SetResult(result.items[i].scannedImage, wxString::FromUTF8(result.items[i].scannedText));
-
-    for(const auto& item : result.items)
-    {
-        auto searchResult = _relicSearcher.SearchForBestMatch(item.scannedText);
-        if(searchResult.first)
-            wxMessageBox(wxString::FromUTF8(searchResult.second.GetName()));
-        else
-            wxMessageBox("Nope...");
-    }
-
-    //TODO: find items ids, fetch prices, show them in ui.
-
+    // Save debug information if required
     if(_optionsPanel->IsDebugDataSavingEnabled())
     {
-        //TODO:
-
         ps::ImageWriter imgWriter;
 
         int i = 0;
@@ -115,7 +131,7 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
         path.AppendDir("tmp");
         path.AppendDir("debug");
 
-        for(auto [scannedImage, processedImage, scannedText] : result.items)
+        for(auto [scannedImage, processedImage, scannedText] : scanResult.items)
         {
             // need to minus i because time(nullptr) returns same values from time to time
             auto id = std::to_string(time(nullptr) - i++);

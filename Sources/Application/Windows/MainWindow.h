@@ -8,7 +8,11 @@
 #include <Services/WarframeMarketApi.h>
 #include <Application/Windows/OptionsPanel.h>
 #include <Services/RelicScanner.h>
+#include <Dto/SearchResult.h>
 #include <Services/ImageWriter.h>
+#include <Services/ItemOrdersJsonParser.h>
+#include <Services/ItemOrdersFilter.h>
+#include <Services/BestPricesFinder.h>
 #include <array>
 #include <cstdlib>
 #include <sstream>
@@ -28,6 +32,9 @@ namespace ps
         RelicScanner _relicScanner;
         RelicDatabaseSearcher _relicSearcher;
         WarframeMarketApi _wmApi;
+        ItemOrdersJsonParser _ordersJsonParser;
+        ItemOrdersFilter _ordersFilter;
+        BestPricesFinder _bestPricesFinder;
 
         void SetupLayout();
         void RegisterHotkeys();
