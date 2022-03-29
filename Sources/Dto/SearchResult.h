@@ -2,15 +2,14 @@
 
 #include <string>
 #include <array>
+#include <Models/RelicItem.h>
+#include "OrderBestPrices.h"
 
 namespace ps
 {
     struct SearchResult
     {
-        std::string name;
-        bool isTradeable;
-        int avgPriceInStore;
-        std::array<int, 5> onlinePrices;
-        std::array<int, 5> offlinePrices;
+        RelicItem item;
+        OrderBestPrices bestPrices;
     };
 }
