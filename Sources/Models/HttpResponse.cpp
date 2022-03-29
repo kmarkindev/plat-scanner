@@ -1,42 +1,42 @@
 #include "HttpResponse.h"
 
-int HttpResponse::GetCode() const
+int ps::HttpResponse::GetCode() const
 {
     return _code;
 }
 
-void HttpResponse::SetCode(int code)
+void ps::HttpResponse::SetCode(int code)
 {
     _code = code;
 }
 
-std::string HttpResponse::GetBody() const
+std::string ps::HttpResponse::GetBody() const
 {
     return _body;
 }
 
-void HttpResponse::SetBody(std::string_view body)
+void ps::HttpResponse::SetBody(std::string_view body)
 {
     _body = body;
 }
 
-const HttpHeadersCollection& HttpResponse::GetHeaders() const
+const ps::HttpHeadersCollection& ps::HttpResponse::GetHeaders() const
 {
     return _headers;
 }
 
-void HttpResponse::SetHeaders(HttpHeadersCollection headers)
+void ps::HttpResponse::SetHeaders(ps::HttpHeadersCollection headers)
 {
     _headers = std::move(headers);
 }
 
-HttpResponse::HttpResponse(int code)
+ps::HttpResponse::HttpResponse(int code)
     : _code(code)
 {
 
 }
 
-HttpHeadersCollection& HttpResponse::GetHeaders()
+ps::HttpHeadersCollection& ps::HttpResponse::GetHeaders()
 {
     return _headers;
 }
