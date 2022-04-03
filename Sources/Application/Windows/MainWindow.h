@@ -40,6 +40,7 @@ namespace ps
         void RegisterHotkeys();
 
         void HotkeyHandler(wxKeyEvent& event);
+        void MoveOnTop();
     };
 }
 

@@ -9,6 +9,7 @@ namespace ps
 {
     struct SearchResult
     {
+        bool wasFound;
         RelicItem item;
         OrderBestPrices bestPrices;
     };

@@ -78,6 +78,8 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
     // Reset previous results
     for(auto panel : _scanResultPanels)
         panel->ResetResult();
+    for(auto panel : _searchResultPanels)
+        panel->ResetResult();
 
     // Scan dropped items from screen
     // TODO: grab resolution and aspect ratio from settings
@@ -89,36 +91,35 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
             wxString::FromUTF8(scanResult.items[i].scannedText));
 
     // Search for best matches in database
-    std::vector<std::pair<bool, SearchResult>> searchResults(itemsCount);
+    std::vector<SearchResult> searchResults(itemsCount);
     for(size_t i = 0; i < scanResult.items.size(); ++i)
     {
         auto result = _relicSearcher.SearchForBestMatch(scanResult.items[i].scannedText);
-        searchResults[i].first = result.first;
-        searchResults[i].second.item = result.second;
+
+        searchResults[i].wasFound = result.first;
+        if(result.first)
+            searchResults[i].item = result.second;
     }
 
     // Fetch prices from warframe.market
     for(auto& result : searchResults)
     {
-        if(!result.first)
+        if(!result.wasFound)
             continue;
 
-        auto ordersJson = _wmApi.FetchItemOrders(result.second.item.GetUrlName());
+        auto ordersJson = _wmApi.FetchItemOrders(result.item.GetUrlName());
         auto itemOrders = _ordersJsonParser.ParseFromString(ordersJson);
         _ordersFilter.FilterOrders(itemOrders);
-        result.second.bestPrices = _bestPricesFinder.SearchBestPrices(itemOrders);
+        result.bestPrices = _bestPricesFinder.SearchBestPrices(itemOrders);
     }
 
     //Show results in UI
+    for(size_t i = 0; i < searchResults.size(); ++i)
+        _searchResultPanels[i]->SetResult(searchResults[i]);
 
     // Move window on top if required
     if(_optionsPanel->IsMoveOnTopEnabled())
-    {
-        Iconize(false);
-        SetFocus();
-        Raise();
-        Show(true);
-    }
+        MoveOnTop();
 
     // Save debug information if required
     if(_optionsPanel->IsDebugDataSavingEnabled())
@@ -147,4 +148,12 @@ void ps::MainWindow::HotkeyHandler(wxKeyEvent& event)
             imgWriter.WriteToDisk(currentPath.GetFullPath().ToStdString(), processedImage);
         }
     }
+}
+
+void ps::MainWindow::MoveOnTop()
+{
+    Iconize(false);
+    SetFocus();
+    Raise();
+    Show(true);
 }
