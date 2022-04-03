@@ -13,4 +13,6 @@ target_sources(PlatScanner PUBLIC
 	HttpHeader.h
 	HttpHeadersCollection.h
 	HttpHeadersCollection.cpp
+	ItemOrder.cpp
+	ItemOrder.h
 )

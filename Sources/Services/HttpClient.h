@@ -5,8 +5,12 @@
 #include <Models/HttpResponse.h>
 #include <Models/HttpRequest.h>
 
-class HttpClient
+namespace ps
 {
-public:
-    HttpResponse Send(const HttpRequest& request);
-};
+    class HttpClient
+    {
+    public:
+        HttpResponse Send(const HttpRequest& request);
+    };
+}
+

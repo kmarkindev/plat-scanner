@@ -1,6 +1,6 @@
 #include "HttpClient.h"
 
-HttpResponse HttpClient::Send(const HttpRequest& request)
+ps::HttpResponse ps::HttpClient::Send(const ps::HttpRequest& request)
 {
     httplib::Client client(request.GetHostname());
     client.set_follow_location(true);

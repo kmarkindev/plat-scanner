@@ -18,4 +18,10 @@ target_sources(PlatScanner PUBLIC
 	WarframeMarketApi.h
 	HttpClient.cpp
 	HttpClient.h
+	ItemOrdersJsonParser.cpp
+	ItemOrdersJsonParser.h
+	ItemOrdersFilter.cpp
+	ItemOrdersFilter.h
+	BestPricesFinder.cpp
+	BestPricesFinder.h
 )

@@ -34,7 +34,7 @@ std::string ps::WarframeMarketApi::FetchItemOrders(std::string itemUrl)
 
     auto request = _httpRequest;
     request.SetHeaders(headers);
-    request.SetPath("/v1/items/" + itemUrl);
+    request.SetPath("/v1/items/" + itemUrl + "/orders");
 
     auto response = _httpClient.Send(request);
 

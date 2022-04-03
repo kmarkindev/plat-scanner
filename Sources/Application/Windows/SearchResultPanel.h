@@ -10,6 +10,7 @@ namespace ps
     public:
         explicit SearchResultPanel(wxWindow* parent);
         void SetResult(SearchResult result);
+        void ResetResult();
     };
 }
 

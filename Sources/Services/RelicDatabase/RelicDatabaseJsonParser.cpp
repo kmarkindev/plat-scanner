@@ -1,6 +1,6 @@
 #include "RelicDatabaseJsonParser.h"
 
-ps::RelicItemsDatabase ps::RelicDatabaseJsonParser::ParseFromString(std::string jsonString)
+ps::RelicItemsDatabase ps::RelicDatabaseJsonParser::ParseFromString(std::string_view jsonString)
 {
     auto json = nlohmann::json::parse(jsonString)["payload"]["items"];
 

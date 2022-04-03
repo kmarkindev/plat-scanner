@@ -10,7 +10,7 @@ namespace ps
     class RelicDatabaseJsonParser
     {
     public:
-        RelicItemsDatabase ParseFromString(std::string jsonString);
+        [[nodiscard]] RelicItemsDatabase ParseFromString(std::string_view jsonString);
     };
 }
 
